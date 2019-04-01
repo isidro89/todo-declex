@@ -33,11 +33,12 @@ dependencies {
     //DecleX
     def declex_version = "2.0.a.32"
     //Core dependencies
+    implementation 'com.android.support:support-v4:28.0.0'
     annotationProcessor "com.dspot:declex:$declex_version"
-    implementation ("com.dspot:declex-api:$declex_version") {
+    implementation("com.dspot:declex-api:$declex_version") {
         exclude group: 'com.google.code.findbugs', module: 'annotations'
     }
-    implementation ("com.dspot:declex-actions:$declex_version") {
+    implementation("com.dspot:declex-actions:$declex_version") {
         exclude group: 'com.google.code.findbugs', module: 'annotations'
     }
     annotationProcessor "pl.com.dspot:archiannotations-declex:0.1.2"

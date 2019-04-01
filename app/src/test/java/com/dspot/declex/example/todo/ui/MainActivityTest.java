@@ -35,6 +35,7 @@ public class MainActivityTest {
     @Test
     public void whenActivityStarts_AllViewsAreShown() {
         activityController.create();
+        activityController.resume();
 
         View taskList = mainActivity.findViewById(R.id.taskList);
         View fab = mainActivity.findViewById(R.id.fab);
