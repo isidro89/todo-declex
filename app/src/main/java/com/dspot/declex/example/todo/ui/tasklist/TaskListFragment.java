@@ -4,12 +4,13 @@ package com.dspot.declex.example.todo.ui.tasklist;
 import android.support.v4.app.Fragment;
 
 import com.dspot.declex.annotation.Populate;
-import com.dspot.declex.example.todo.DatabaseInstance;
+import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.R;
 import com.dspot.declex.example.todo.model.TaskToDo;
 import com.dspot.declex.example.todo.ui.TaskListViewModel;
 
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 
@@ -28,6 +29,9 @@ public class TaskListFragment extends Fragment {
     @ViewModel
     TaskListViewModel viewModel;
 
+    @Bean
+    Navigation navigation;
+
     @Populate()
     List<TaskToDo> taskList;
 
@@ -42,7 +46,7 @@ public class TaskListFragment extends Fragment {
     @Click(R.id.fab)
     @Background
     void onFabClicked() {
-        DatabaseInstance.get().taskDao().insert(new TaskToDo("TaskToDo #" + ++i));
+        navigation.goToAddTaskFragment();
     }
 
 
