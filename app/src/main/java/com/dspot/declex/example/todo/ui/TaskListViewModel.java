@@ -4,12 +4,11 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.dspot.declex.example.todo.model.Task;
+import com.dspot.declex.example.todo.DatabaseInstance;
+import com.dspot.declex.example.todo.model.TaskToDo;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import pl.com.dspot.archiannotations.annotation.EViewModel;
@@ -20,27 +19,11 @@ import pl.com.dspot.archiannotations.annotation.Observable;
 public class TaskListViewModel extends ViewModel {
 
     @Observable
-    MutableLiveData<List<Task>> taskList;
+    MutableLiveData<List<TaskToDo>> taskList;
 
-
-    public MutableLiveData<List<Task>> getTaskList() {
-        return taskList;
+    public LiveData<List<TaskToDo>> getTaskList() {
+        return DatabaseInstance.get().taskDao().getAllTasks();
     }
 
-    @AfterInject
-    void initializeDependencies() {
-        createMockData();
-    }
-
-    private void createMockData() {
-        if (taskListMock == null) {
-            taskListMock = new LinkedList<>();
-            taskListMock.add(new Task(0, "Task #1", "description goes here"));
-            taskListMock.add(new Task(1, "Task #2", "description goes here"));
-            taskListMock.add(new Task(2, "Task #3", "description goes here"));
-        }
-        taskList.postValue(taskListMock);
-    }
-
-    List<Task> taskListMock;
+    List<TaskToDo> taskToDoListMock;
 }
