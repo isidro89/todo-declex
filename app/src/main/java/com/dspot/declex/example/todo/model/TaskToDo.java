@@ -1,21 +1,24 @@
 package com.dspot.declex.example.todo.model;
 
-public class Task {
-    private int id;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity
+public class TaskToDo {
+    @PrimaryKey(autoGenerate = true)
+    private Long id;
     private String title;
     private String description;
 
-    public Task(int id, String title, String description) {
-        this.id = id;
+    public TaskToDo(String title) {
         this.title = title;
-        this.description = description;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
