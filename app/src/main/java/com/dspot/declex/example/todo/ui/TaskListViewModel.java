@@ -25,5 +25,4 @@ public class TaskListViewModel extends ViewModel {
         return DatabaseInstance.get().taskDao().getAllTasks();
     }
 
-    List<TaskToDo> taskToDoListMock;
 }
