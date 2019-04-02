@@ -1,11 +1,9 @@
 package com.dspot.declex.example.todo.ui;
 
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.content.Context;
 
 import com.dspot.declex.example.todo.App;
-import com.dspot.declex.example.todo.R;
+import com.dspot.declex.example.todo.Navigation;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,9 +13,8 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 @Config(application = App.class)
 @RunWith(RobolectricTestRunner.class)
@@ -30,20 +27,26 @@ public class MainActivityTest {
     public void setUp() {
         activityController = Robolectric.buildActivity(MainActivity_.class);
         mainActivity = activityController.get();
+        MainActivity_.DependenciesProvider_.setInstance_(new MainActivityDependencies());
+        activityController.create();
+        activityController.resume();
     }
 
     @Test
-    public void whenActivityStarts_AllViewsAreShown() {
-        activityController.create();
-        activityController.resume();
+    public void whenActivityStarts_TaskListFragmentIsShown() {
+        verify(mainActivity.navigation).goToTaskListFragment();
+    }
 
-        View taskList = mainActivity.findViewById(R.id.taskList);
-        View fab = mainActivity.findViewById(R.id.fab);
+    private class MainActivityDependencies extends MainActivity_.DependenciesProvider_ {
 
-        assertNotNull("tasks list is null", taskList);
-        assertNotNull("fab is null", fab);
-        assertThat(taskList, instanceOf(RecyclerView.class));
-        assertThat(fab, instanceOf(FloatingActionButton.class));
+        private Navigation mockNavigation;
 
+        @Override
+        public Navigation getNavigation(Context context, Object rootFragment) {
+            if (mockNavigation == null) {
+                mockNavigation = mock(Navigation.class);
+            }
+            return mockNavigation;
+        }
     }
 }

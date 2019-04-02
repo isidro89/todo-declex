@@ -7,6 +7,7 @@ import android.arch.lifecycle.ViewModel;
 import com.dspot.declex.example.todo.DatabaseInstance;
 import com.dspot.declex.example.todo.model.TaskToDo;
 
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 import java.util.List;
@@ -21,8 +22,11 @@ public class TaskListViewModel extends ViewModel {
     @Observable
     MutableLiveData<List<TaskToDo>> taskList;
 
+    @Bean
+    DatabaseInstance databaseInstance;
+
     public LiveData<List<TaskToDo>> getTaskList() {
-        return DatabaseInstance.get().taskDao().getAllTasks();
+        return databaseInstance.get().taskDao().getAllTasks();
     }
 
 }

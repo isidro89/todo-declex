@@ -5,20 +5,24 @@ import android.content.Context;
 
 import com.dspot.declex.example.todo.model.TodoDatabase;
 
+import org.androidannotations.annotations.EBean;
+
+@EBean(scope = EBean.Scope.Singleton)
 public class DatabaseInstance {
     private static final String DB_NAME = "todo_db";
 
-    private static TodoDatabase INSTANCE;
+    protected static TodoDatabase INSTANCE;
 
-    public static TodoDatabase get() {
+    public TodoDatabase get() {
         return INSTANCE;
     }
 
+    public DatabaseInstance(Context context) {
+        init(context);
+    }
 
-    public static void init(Context context) {
-        if (INSTANCE == null) {
-            INSTANCE = Room.databaseBuilder(context,
-                    TodoDatabase.class, DB_NAME).fallbackToDestructiveMigration().build();
-        }
+    protected void init(Context context) {
+        INSTANCE = Room.databaseBuilder(context,
+                TodoDatabase.class, DB_NAME).fallbackToDestructiveMigration().build();
     }
 }

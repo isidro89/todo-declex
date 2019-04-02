@@ -6,6 +6,7 @@ import com.dspot.declex.example.todo.DatabaseInstance;
 import com.dspot.declex.example.todo.model.TaskToDo;
 
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 import pl.com.dspot.archiannotations.annotation.EViewModel;
@@ -14,9 +15,11 @@ import pl.com.dspot.archiannotations.annotation.EViewModel;
 @EViewModel
 public class AddTaskViewModel extends ViewModel {
 
+    @Bean
+    DatabaseInstance databaseInstance;
 
     @Background
     public void saveTask(TaskToDo task) {
-        DatabaseInstance.get().taskDao().insert(task);
+        databaseInstance.get().taskDao().insert(task);
     }
 }
