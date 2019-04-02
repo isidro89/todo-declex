@@ -7,7 +7,6 @@ import com.dspot.declex.annotation.Populate;
 import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.R;
 import com.dspot.declex.example.todo.model.TaskToDo;
-import com.dspot.declex.example.todo.ui.TaskListViewModel;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;

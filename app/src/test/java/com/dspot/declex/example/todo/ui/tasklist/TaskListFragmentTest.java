@@ -12,7 +12,6 @@ import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.R;
 import com.dspot.declex.example.todo.model.TaskDao;
 import com.dspot.declex.example.todo.model.TodoDatabase;
-import com.dspot.declex.example.todo.ui.TaskListViewModel_;
 
 import org.junit.Before;
 import org.junit.Test;

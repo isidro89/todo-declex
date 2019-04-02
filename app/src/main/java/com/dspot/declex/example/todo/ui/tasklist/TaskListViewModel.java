@@ -1,4 +1,4 @@
-package com.dspot.declex.example.todo.ui;
+package com.dspot.declex.example.todo.ui.tasklist;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
