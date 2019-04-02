@@ -30,15 +30,7 @@ public class TaskToDo {
     private String description;
 
     private Date timeStamp;
-
-
-    public TaskToDo() {
-    }
-
-    public TaskToDo(String title) {
-        this.title = title;
-    }
-
+    
     public Long getId() {
         return id;
     }
@@ -70,7 +62,6 @@ public class TaskToDo {
     public void setTimeStamp(Date timeStamp) {
         this.timeStamp = timeStamp;
     }
-
 
     @Ignore
     public String getDate() {
