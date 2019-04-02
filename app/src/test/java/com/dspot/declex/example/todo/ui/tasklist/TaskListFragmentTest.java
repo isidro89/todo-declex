@@ -37,7 +37,7 @@ public class TaskListFragmentTest {
     private TaskListFragmentDependencies taskListFragmentDependencies;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         new TaskListViewModelDependencies();
         taskListFragmentDependencies = new TaskListFragmentDependencies();
         taskListFragment = new TaskListFragment_();

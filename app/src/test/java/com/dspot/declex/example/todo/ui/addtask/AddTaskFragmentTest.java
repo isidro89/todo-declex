@@ -3,7 +3,6 @@ package com.dspot.declex.example.todo.ui.addtask;
 import android.app.Application;
 import android.content.Context;
 import android.view.View;
-import android.widget.EditText;
 
 import com.dspot.declex.example.todo.DatabaseInstance;
 import com.dspot.declex.example.todo.Navigation;
@@ -37,7 +36,7 @@ public class AddTaskFragmentTest {
     private AddTaskViewModelDependencies addTaskViewModelDependencies;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         new AddTaskViewModelDependencies();
         addTaskFragmentDependencies = new AddTaskFragmentDependencies();
         addTaskViewModelDependencies = new AddTaskViewModelDependencies();
