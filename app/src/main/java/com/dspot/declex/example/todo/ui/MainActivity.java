@@ -23,7 +23,10 @@ public class MainActivity extends AppCompatActivity {
     @AfterViews
     public void setUpViews() {
         setSupportActionBar(toolbar);
-        navigation.goToTaskListFragment();
+        if (getSupportFragmentManager().getFragments().size() == 0) // is there a better way to
+            // ensure this is done only when starting the activity for the first time and not
+            // when there is a configuration change (e.g device is rotated)?
+            navigation.goToTaskListFragment();
     }
 
 

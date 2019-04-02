@@ -73,7 +73,7 @@ public class AddTaskFragment extends Fragment {
 
         viewModel.saveTask(task);
 
-        navigation.goToTaskListFragment();
+        navigation.goBack();
     }
 
     @Touch(R.id.dateView)
