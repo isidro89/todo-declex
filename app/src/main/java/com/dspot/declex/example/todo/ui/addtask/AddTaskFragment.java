@@ -26,8 +26,10 @@ public class AddTaskFragment extends Fragment {
 
     @Bean
     Navigation navigation;
+
     @ViewModel
     AddTaskViewModel viewModel;
+
     @Recollect(validate = true)
     TaskToDo task = new TaskToDo();
 

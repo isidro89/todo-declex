@@ -40,13 +40,10 @@ public class TaskListFragment extends Fragment {
         $Populate(taskList);
     }
 
-    static long i = 0;
-
     @Click(R.id.fab)
     @Background
     void onFabClicked() {
         navigation.goToAddTaskFragment();
     }
-
 
 }

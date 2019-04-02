@@ -33,6 +33,7 @@ import static org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFr
 public class TaskListFragmentTest {
 
     private TaskListFragment_ taskListFragment;
+
     private TaskListFragmentDependencies taskListFragmentDependencies;
 
     @Before

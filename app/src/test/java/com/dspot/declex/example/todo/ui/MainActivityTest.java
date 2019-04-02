@@ -8,12 +8,13 @@ import com.dspot.declex.example.todo.Navigation;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.controller.ActivityController;
 import org.robolectric.annotation.Config;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 @Config(application = App.class)
@@ -21,6 +22,7 @@ import static org.mockito.Mockito.verify;
 public class MainActivityTest {
 
     private MainActivity_ mainActivity;
+
     private ActivityController<MainActivity_> activityController;
 
     @Before
@@ -39,13 +41,15 @@ public class MainActivityTest {
 
     private class MainActivityDependencies extends MainActivity_.DependenciesProvider_ {
 
+        @Mock
         private Navigation mockNavigation;
+
+        public MainActivityDependencies() {
+            MockitoAnnotations.initMocks(this);
+        }
 
         @Override
         public Navigation getNavigation(Context context, Object rootFragment) {
-            if (mockNavigation == null) {
-                mockNavigation = mock(Navigation.class);
-            }
             return mockNavigation;
         }
     }
