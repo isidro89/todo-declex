@@ -2,7 +2,6 @@ package com.dspot.declex.example.todo.ui;
 
 import android.content.Context;
 
-import com.dspot.declex.example.todo.App;
 import com.dspot.declex.example.todo.Navigation;
 
 import org.junit.Before;
@@ -13,11 +12,9 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.android.controller.ActivityController;
-import org.robolectric.annotation.Config;
 
 import static org.mockito.Mockito.verify;
 
-@Config(application = App.class)
 @RunWith(RobolectricTestRunner.class)
 public class MainActivityTest {
 
