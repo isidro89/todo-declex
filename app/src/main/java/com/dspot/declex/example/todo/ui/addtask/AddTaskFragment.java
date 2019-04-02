@@ -39,7 +39,7 @@ public class AddTaskFragment extends Fragment {
     }
 
     @FocusChange
-    public void titleFocusChanged(View view, boolean hasFocus){
+    public void taskTitleFocusChanged(View view, boolean hasFocus){
         if (!hasFocus) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
