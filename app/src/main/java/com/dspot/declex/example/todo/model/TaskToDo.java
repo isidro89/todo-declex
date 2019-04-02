@@ -3,12 +3,18 @@ package com.dspot.declex.example.todo.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+
 @Entity
 public class TaskToDo {
     @PrimaryKey(autoGenerate = true)
     private Long id;
+    @NotEmpty
     private String title;
     private String description;
+
+    public TaskToDo() {
+    }
 
     public TaskToDo(String title) {
         this.title = title;

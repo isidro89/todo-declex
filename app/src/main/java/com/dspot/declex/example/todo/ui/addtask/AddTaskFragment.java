@@ -6,8 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.dspot.declex.annotation.Recollect;
 import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.R;
+import com.dspot.declex.example.todo.model.TaskDao;
 import com.dspot.declex.example.todo.model.TaskToDo;
 
 import org.androidannotations.annotations.Bean;
@@ -17,6 +19,8 @@ import org.androidannotations.annotations.FocusChange;
 
 import pl.com.dspot.archiannotations.annotation.ViewModel;
 
+import static com.dspot.declex.actions.Action.$Recollect;
+
 @EFragment(R.layout.fragment_add_task)
 public class AddTaskFragment extends Fragment {
 
@@ -24,10 +28,13 @@ public class AddTaskFragment extends Fragment {
     Navigation navigation;
     @ViewModel
     AddTaskViewModel viewModel;
+    @Recollect(validate = true)
+    TaskToDo task = new TaskToDo();
 
     @Click
-    void buttonAddTask(String titleText) {
-        viewModel.saveTask(new TaskToDo(titleText));
+    void buttonAddTask() {
+        $Recollect(task);
+        viewModel.saveTask(task);
         navigation.goToTaskListFragment();
     }
 
