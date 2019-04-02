@@ -8,7 +8,6 @@ import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.R;
 import com.dspot.declex.example.todo.model.TaskToDo;
 
-import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
@@ -41,7 +40,6 @@ public class TaskListFragment extends Fragment {
     }
 
     @Click(R.id.fab)
-    @Background
     void onFabClicked() {
         navigation.goToAddTaskFragment();
     }
