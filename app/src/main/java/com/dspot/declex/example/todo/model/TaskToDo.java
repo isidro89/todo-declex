@@ -2,10 +2,16 @@ package com.dspot.declex.example.todo.model;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverter;
+import android.arch.persistence.room.TypeConverters;
 
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
+import java.time.Instant;
+import java.util.Date;
+
 @Entity
+@TypeConverters(Converters.class)
 public class TaskToDo {
 
     @PrimaryKey(autoGenerate = true)
@@ -15,6 +21,16 @@ public class TaskToDo {
     private String title;
 
     private String description;
+
+    private Date timeStamp;
+
+
+    public TaskToDo() {
+    }
+
+    public TaskToDo(String title) {
+        this.title = title;
+    }
 
     public Long getId() {
         return id;
@@ -38,5 +54,13 @@ public class TaskToDo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Date timeStamp) {
+        this.timeStamp = timeStamp;
     }
 }
