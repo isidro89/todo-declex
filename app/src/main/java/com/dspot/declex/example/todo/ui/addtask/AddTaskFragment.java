@@ -32,8 +32,11 @@ import static com.dspot.declex.api.action.ActionsTools.$inject;
 public class AddTaskFragment extends Fragment {
 
     public Calendar calendar = Calendar.getInstance();
+
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd - MMM - yyyy", Locale.US);
+
     SimpleDateFormat simpleDateFormatForTime = new SimpleDateFormat("hh : mm a", Locale.US);
+
     @Bean
     Navigation navigation;
 
@@ -42,8 +45,10 @@ public class AddTaskFragment extends Fragment {
 
     @Recollect(validate = true)
     TaskToDo task = new TaskToDo();
+
     @ViewById
     TextView dateView;
+
     @ViewById
     TextView timeView;
 
@@ -65,7 +70,9 @@ public class AddTaskFragment extends Fragment {
     void buttonAddTask() {
         $Recollect(task);
         task.setTimeStamp(calendar.getTime());
+
         viewModel.saveTask(task);
+
         navigation.goToTaskListFragment();
     }
 

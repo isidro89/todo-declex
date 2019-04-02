@@ -61,7 +61,6 @@ public class TaskListFragmentTest {
         startFragment(taskListFragment);
         taskListFragment.getView().findViewById(R.id.fab).performClick();
         verify(taskListFragmentDependencies.navigation).goToAddTaskFragment();
-
     }
 
     private class TaskListFragmentDependencies extends TaskListFragment_.DependenciesProvider_ {
@@ -85,16 +84,20 @@ public class TaskListFragmentTest {
 
         @Mock
         DatabaseInstance databaseInstance;
+
         @Mock
         TodoDatabase todoDatabase;
+
         @Mock
         TaskDao taskDao;
 
         public TaskListViewModelDependencies() {
             MockitoAnnotations.initMocks(this);
+
             when(databaseInstance.get()).thenReturn(todoDatabase);
             when(todoDatabase.taskDao()).thenReturn(taskDao);
             when(taskDao.getAllTasks()).thenReturn(new MutableLiveData<>());
+
             TaskListViewModel_.DependenciesProvider_.setInstance_(this);
         }
 
