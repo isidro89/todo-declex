@@ -1,11 +1,8 @@
 package com.dspot.declex.example.todo.ui.addtask;
 
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.dspot.declex.annotation.Recollect;
@@ -17,7 +14,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
-import org.androidannotations.annotations.FocusChange;
 import org.androidannotations.annotations.Touch;
 import org.androidannotations.annotations.ViewById;
 
@@ -71,14 +67,6 @@ public class AddTaskFragment extends Fragment {
         task.setTimeStamp(calendar.getTime());
         viewModel.saveTask(task);
         navigation.goToTaskListFragment();
-    }
-
-    @FocusChange
-    public void taskTitleFocusChanged(View view, boolean hasFocus) {
-        if (!hasFocus) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
     }
 
     @Touch(R.id.dateView)
