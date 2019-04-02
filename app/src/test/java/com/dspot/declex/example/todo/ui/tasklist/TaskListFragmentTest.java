@@ -49,8 +49,8 @@ public class TaskListFragmentTest {
         View taskList = taskListFragment.getView().findViewById(R.id.taskList);
         View fab = taskListFragment.getView().findViewById(R.id.fab);
 
-        assertNotNull("tasks list is null", taskList);
-        assertNotNull("fab is null", fab);
+        assertNotNull("tasks list can't be null", taskList);
+        assertNotNull("fab can't be null", fab);
         assertThat(taskList, instanceOf(RecyclerView.class));
         assertThat(fab, instanceOf(FloatingActionButton.class));
     }
