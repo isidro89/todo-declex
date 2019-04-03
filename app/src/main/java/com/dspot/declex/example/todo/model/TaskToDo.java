@@ -1,15 +1,12 @@
 package com.dspot.declex.example.todo.model;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 @Entity
 @TypeConverters(Converters.class)

@@ -1,14 +1,11 @@
 package com.dspot.declex.example.todo.ui.tasklist;
 
-import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 
 import com.dspot.declex.example.todo.DatabaseInstance;
 import com.dspot.declex.example.todo.api.ItemViewModelList;
-import com.dspot.declex.example.todo.model.TaskToDo;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
