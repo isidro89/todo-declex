@@ -1,7 +1,9 @@
 package com.dspot.declex.example.todo.ui.tasklist;
 
 import android.app.Application;
+import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
@@ -11,19 +13,29 @@ import com.dspot.declex.example.todo.DatabaseInstance;
 import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.R;
 import com.dspot.declex.example.todo.model.TaskDao;
+import com.dspot.declex.example.todo.model.TaskToDo;
 import com.dspot.declex.example.todo.model.TodoDatabase;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.util.Date;
+import java.util.List;
+
+import static java.util.Collections.nCopies;
 import static junit.framework.TestCase.assertNotNull;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFragment;
@@ -32,13 +44,17 @@ import static org.robolectric.shadows.support.v4.SupportFragmentTestUtil.startFr
 @RunWith(RobolectricTestRunner.class)
 public class TaskListFragmentTest {
 
+    @Rule
+    public TestRule executeLiveDataInstantly = new InstantTaskExecutorRule();
+
     private TaskListFragment_ taskListFragment;
 
     private TaskListFragmentDependencies taskListFragmentDependencies;
+    private TaskListViewModelDependencies taskListViewModelDependencies;
 
     @Before
     public void setUp() {
-        new TaskListViewModelDependencies();
+        taskListViewModelDependencies = new TaskListViewModelDependencies();
         taskListFragmentDependencies = new TaskListFragmentDependencies();
         taskListFragment = new TaskListFragment_();
     }
@@ -63,6 +79,16 @@ public class TaskListFragmentTest {
         verify(taskListFragmentDependencies.navigation).goToAddTaskFragment();
     }
 
+    @Test
+    public void whenGettingListOfTasks_TheyAreDisplayed(){
+        startFragment(taskListFragment);
+        RecyclerView recyclerView = taskListFragment.getView().findViewById(R.id.taskList);
+        recyclerView.measure(0, 0);
+        recyclerView.layout(0, 0, 100, 1000);
+
+        assertEquals(taskListViewModelDependencies.list.size(), recyclerView.getChildCount());
+    }
+
     private class TaskListFragmentDependencies extends TaskListFragment_.DependenciesProvider_ {
 
         @Mock
@@ -82,6 +108,8 @@ public class TaskListFragmentTest {
 
     private class TaskListViewModelDependencies extends TaskListViewModel_.DependenciesProvider_ {
 
+        private List<TaskToDo> list;
+
         @Mock
         DatabaseInstance databaseInstance;
 
@@ -91,14 +119,36 @@ public class TaskListFragmentTest {
         @Mock
         TaskDao taskDao;
 
+        @Mock
+        MutableLiveData<List<TaskToDo>> taskListLiveData;
+
+        @Mock
+        TaskToDo task;
+
         public TaskListViewModelDependencies() {
+            initMocksAndStubs();
+            TaskListViewModel_.DependenciesProvider_.setInstance_(this);
+        }
+
+        private List<TaskToDo> initMocksAndStubs() {
             MockitoAnnotations.initMocks(this);
 
             when(databaseInstance.get()).thenReturn(todoDatabase);
             when(todoDatabase.taskDao()).thenReturn(taskDao);
-            when(taskDao.getAllTasks()).thenReturn(new MutableLiveData<>());
+            when(taskDao.getAllTasks()).thenReturn(taskListLiveData);
+            when(task.getTimeStamp()).thenReturn(new Date(System.currentTimeMillis()));
 
-            TaskListViewModel_.DependenciesProvider_.setInstance_(this);
+            list = nCopies(5, task);
+
+            doAnswer(invocation -> {
+
+                Observer<List<TaskToDo>> observer = (Observer<List<TaskToDo>>) invocation.getArguments()[0];
+                observer.onChanged(list);
+
+                return null;
+
+            }).when(taskListLiveData).observeForever(any());
+            return list;
         }
 
         @Override
