@@ -1,8 +1,10 @@
 package com.dspot.declex.example.todo.ui;
 
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.dspot.declex.annotation.RunWith;
 import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.R;
 
@@ -20,13 +22,16 @@ public class MainActivity extends AppCompatActivity {
     @Bean
     Navigation navigation;
 
+    @RunWith("onCreate")
+    public void initializeFragment(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            navigation.goToTaskListFragment();
+        }
+    }
+
     @AfterViews
     public void setUpViews() {
         setSupportActionBar(toolbar);
-        if (getSupportFragmentManager().getFragments().size() == 0) // is there a better way to
-            // ensure this is done only when starting the activity for the first time and not
-            // when there is a configuration change (e.g device is rotated)?
-            navigation.goToTaskListFragment();
     }
 
 
