@@ -37,7 +37,6 @@ public class AddTaskFragmentTest {
 
     @Before
     public void setUp() {
-        new AddTaskViewModelDependencies();
         addTaskFragmentDependencies = new AddTaskFragmentDependencies();
         addTaskViewModelDependencies = new AddTaskViewModelDependencies();
         addTaskFragment = new AddTaskFragment_();
