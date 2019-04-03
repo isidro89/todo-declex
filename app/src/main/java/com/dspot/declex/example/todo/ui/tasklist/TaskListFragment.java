@@ -34,11 +34,11 @@ public class TaskListFragment extends Fragment {
     Navigation navigation;
 
     @Populate()
-    List<TaskToDo> taskList;
+    List<TaskToDoItemViewModel> taskList;
 
     @Observer
-    void taskList(List<TaskToDo> taskToDos) {
-        this.taskList = taskToDos;
+    void taskToDoItemViewModelList(List<TaskToDoItemViewModel> taskList) {
+        this.taskList = taskList;
         $Populate(taskList);
     }
 

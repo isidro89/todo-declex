@@ -15,12 +15,6 @@ import java.util.Locale;
 @TypeConverters(Converters.class)
 public class TaskToDo {
 
-    @Ignore
-    static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM", Locale.US);
-
-    @Ignore
-    static SimpleDateFormat simpleDateFormatForTime = new SimpleDateFormat("HH:mm", Locale.US);
-
     @PrimaryKey(autoGenerate = true)
     private Long id;
 
@@ -63,13 +57,4 @@ public class TaskToDo {
         this.timeStamp = timeStamp;
     }
 
-    @Ignore
-    public String getDate() {
-        return simpleDateFormat.format(timeStamp);
-    }
-
-    @Ignore
-    public String getTime() {
-        return simpleDateFormatForTime.format(timeStamp);
-    }
 }

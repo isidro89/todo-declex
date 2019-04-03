@@ -1,12 +1,16 @@
 package com.dspot.declex.example.todo.ui.tasklist;
 
+import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 
 import com.dspot.declex.example.todo.DatabaseInstance;
+import com.dspot.declex.example.todo.api.ItemViewModelList;
 import com.dspot.declex.example.todo.model.TaskToDo;
 
+import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
@@ -20,13 +24,20 @@ import pl.com.dspot.archiannotations.annotation.Observable;
 public class TaskListViewModel extends ViewModel {
 
     @Observable
-    MutableLiveData<List<TaskToDo>> taskList;
+    LiveData<List<TaskToDoItemViewModel>> taskToDoItemViewModelList;
 
     @Bean
     DatabaseInstance databaseInstance;
 
-    public LiveData<List<TaskToDo>> getTaskList() {
-        return databaseInstance.get().taskDao().getAllTasks();
+    @pl.com.dspot.archiannotations.annotation.ViewModel
+    TaskToDoItemViewModel itemViewModel;
+
+    @AfterInject
+    void initializeDependencies() {
+        taskToDoItemViewModelList = Transformations.map(databaseInstance.get().taskDao().getAllTasks(), input -> new ItemViewModelList<>(itemViewModel, input));
     }
 
+    public LiveData<List<TaskToDoItemViewModel>> getTaskToDoItemViewModelList() {
+        return taskToDoItemViewModelList;
+    }
 }
