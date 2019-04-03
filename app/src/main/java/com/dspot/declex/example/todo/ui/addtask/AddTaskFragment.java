@@ -33,9 +33,9 @@ public class AddTaskFragment extends Fragment {
 
     public Calendar calendar = Calendar.getInstance();
 
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd - MMM - yyyy", Locale.US);
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd - MMMM - yyyy", Locale.US); // TODO: 4/3/2019 Remove Locale.US if we decide to make the app locale-aware
 
-    SimpleDateFormat simpleDateFormatForTime = new SimpleDateFormat("hh : mm a", Locale.US);
+    SimpleDateFormat simpleDateFormatForTime = new SimpleDateFormat("hh : mm a", Locale.US); // TODO: 4/3/2019 Remove Locale.US if we decide to make the app locale-aware
 
     @Bean
     Navigation navigation;
