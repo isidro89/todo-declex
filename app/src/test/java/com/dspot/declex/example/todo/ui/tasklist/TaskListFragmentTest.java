@@ -51,11 +51,13 @@ public class TaskListFragmentTest {
 
     private TaskListFragmentDependencies taskListFragmentDependencies;
     private TaskListViewModelDependencies taskListViewModelDependencies;
+    private TaskToDoItemViewModelDependencies taskToDoItemViewModelDependencies;
 
     @Before
     public void setUp() {
         taskListViewModelDependencies = new TaskListViewModelDependencies();
         taskListFragmentDependencies = new TaskListFragmentDependencies();
+        taskToDoItemViewModelDependencies = new TaskToDoItemViewModelDependencies();
         taskListFragment = new TaskListFragment_();
     }
 
@@ -80,13 +82,25 @@ public class TaskListFragmentTest {
     }
 
     @Test
-    public void whenGettingListOfTasks_TheyAreDisplayed(){
+    public void whenGettingListOfTasks_TheyAreDisplayed() {
         startFragment(taskListFragment);
         RecyclerView recyclerView = taskListFragment.getView().findViewById(R.id.taskList);
         recyclerView.measure(0, 0);
         recyclerView.layout(0, 0, 100, 1000);
 
         assertEquals(taskListViewModelDependencies.list.size(), recyclerView.getChildCount());
+    }
+
+    @Test
+    public void whenATaskIsClicked_ItsDetailsAreShown() {
+        startFragment(taskListFragment);
+        RecyclerView recyclerView = taskListFragment.getView().findViewById(R.id.taskList);
+        recyclerView.measure(0, 0);
+        recyclerView.layout(0, 0, 100, 1000);
+
+        recyclerView.getChildAt(0).performClick();
+
+        verify(taskToDoItemViewModelDependencies.navigation).goToTaskDetails(any(TaskToDo.class));
     }
 
     private class TaskListFragmentDependencies extends TaskListFragment_.DependenciesProvider_ {
@@ -154,6 +168,22 @@ public class TaskListFragmentTest {
         @Override
         public DatabaseInstance getDatabaseInstance(Context context, Object rootFragment) {
             return databaseInstance;
+        }
+    }
+
+    private class TaskToDoItemViewModelDependencies extends TaskToDoItemViewModel_.DependenciesProvider_ {
+
+        @Mock
+        Navigation navigation;
+
+        public TaskToDoItemViewModelDependencies() {
+            MockitoAnnotations.initMocks(this);
+            TaskToDoItemViewModel_.DependenciesProvider_.setInstance_(this);
+        }
+
+        @Override
+        public Navigation getNavigation(Context context, Object rootFragment) {
+            return navigation;
         }
     }
 
