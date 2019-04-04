@@ -73,13 +73,16 @@ public class AddTaskFragment extends Fragment {
     void buttonAddTask() {
         $Recollect(task);
         task.setTimeStamp(calendar.getTime());
+        task.setDone(false);
 
         viewModel.saveTask(task);
     }
 
     @Observer
     public void successfullySaved(Boolean wasSuccessfullySaved) {
-        navigation.goBack();
+        if (wasSuccessfullySaved) {
+            navigation.goBack();
+        }
     }
 
     @Touch(R.id.dateView)

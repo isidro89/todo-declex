@@ -22,6 +22,8 @@ public class TaskToDo {
 
     private Date timeStamp;
 
+    private Boolean done;
+
     public Long getId() {
         return id;
     }
@@ -54,4 +56,11 @@ public class TaskToDo {
         this.timeStamp = timeStamp;
     }
 
+    public Boolean getDone() {
+        return done;
+    }
+
+    public void setDone(Boolean done) {
+        this.done = done;
+    }
 }
