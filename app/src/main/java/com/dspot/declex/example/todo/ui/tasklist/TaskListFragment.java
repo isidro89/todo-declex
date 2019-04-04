@@ -1,15 +1,22 @@
 package com.dspot.declex.example.todo.ui.tasklist;
 
 
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.Group;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.CheckBox;
 
 import com.dspot.declex.annotation.Populate;
 import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.R;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.InstanceState;
+import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
@@ -18,7 +25,6 @@ import pl.com.dspot.archiannotations.annotation.Observer;
 import pl.com.dspot.archiannotations.annotation.ViewModel;
 
 import static com.dspot.declex.actions.Action.$Populate;
-import static com.dspot.declex.example.todo.ui.tasklist.TaskToDoItemViewModel.canEditStatus;
 
 @EBinder
 @EFragment(R.layout.fragment_tasklist)
@@ -33,6 +39,20 @@ public class TaskListFragment extends Fragment {
     @Populate()
     List<TaskToDoItemViewModel> taskList;
 
+    @ViewById
+    ConstraintLayout statusEditionLayout;
+
+    @ViewById(R.id.fab_group)
+    Group groupOfFabs;
+
+    @InstanceState
+    boolean isEditing;
+
+    @AfterViews
+    public void initializeViews() {
+        setEditionMode(isEditing);
+    }
+
     @Observer
     void taskToDoItemViewModelList(List<TaskToDoItemViewModel> taskList) {
         this.taskList = taskList;
@@ -46,12 +66,29 @@ public class TaskListFragment extends Fragment {
 
     @Click
     void buttonCheckDoneTasks() {
-        TaskToDoItemViewModel.canEditStatus = !TaskToDoItemViewModel.canEditStatus;
+        setEditionMode(true);
+    }
+
+    @Click
+    public void buttonCloseEditionMode() {
+        setEditionMode(false);
+    }
+
+    protected void setEditionMode(boolean isEditing) {
+        this.isEditing = isEditing;
+        TaskToDoItemViewModel.canEditStatus = isEditing;
+        statusEditionLayout.setVisibility(isEditing ? View.VISIBLE : View.INVISIBLE);
+        groupOfFabs.setVisibility(isEditing ? View.INVISIBLE : View.VISIBLE);
         $Populate(taskList);
     }
 
     @Click(R.id.card_view_root)
     public void showTaskDetails(TaskToDoItemViewModel model) {
         model.showDetails();
+    }
+
+    @Click(R.id.statusCheckBox)
+    public void toggleStatus(CheckBox statusCheckBox, TaskToDoItemViewModel model) {
+        model.changeStatus(statusCheckBox.isChecked());
     }
 }

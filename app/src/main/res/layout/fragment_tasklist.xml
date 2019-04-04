@@ -51,4 +51,14 @@
         app:srcCompat="@drawable/ic_check_black_24dp"
         app:tint="#fff" />
 
+    <include
+        android:id="@+id/status_edition_layout"
+        layout="@layout/status_edition_buttons"
+        android:visibility="invisible" />
+
+    <android.support.constraint.Group
+        android:id="@+id/fab_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="fab,button_check_done_tasks" />
 </android.support.constraint.ConstraintLayout>

@@ -4,10 +4,12 @@ import android.support.constraint.Group;
 import android.view.View;
 import android.widget.CheckBox;
 
+import com.dspot.declex.example.todo.DatabaseInstance;
 import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.api.ItemViewModel;
 import com.dspot.declex.example.todo.model.TaskToDo;
 
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
@@ -24,6 +26,9 @@ public class TaskToDoItemViewModel extends ItemViewModel<TaskToDo> {
 
     @Bean
     Navigation navigation;
+
+    @Bean
+    DatabaseInstance databaseInstance;
 
     static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM", Locale.US);
 
@@ -60,5 +65,11 @@ public class TaskToDoItemViewModel extends ItemViewModel<TaskToDo> {
         } else {
             checkBox.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Background
+    public void changeStatus(boolean isDone) {
+        model.setDone(isDone);
+        databaseInstance.get().taskDao().update(model);
     }
 }
