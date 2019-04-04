@@ -21,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import pl.com.dspot.archiannotations.annotation.EBinder;
+import pl.com.dspot.archiannotations.annotation.Observer;
 import pl.com.dspot.archiannotations.annotation.ViewModel;
 
 import static com.dspot.declex.actions.Action.$DateDialog;
@@ -28,6 +30,7 @@ import static com.dspot.declex.actions.Action.$Recollect;
 import static com.dspot.declex.actions.Action.$TimeDialog;
 import static com.dspot.declex.api.action.ActionsTools.$inject;
 
+@EBinder
 @EFragment(R.layout.fragment_add_task)
 public class AddTaskFragment extends Fragment {
 
@@ -72,7 +75,10 @@ public class AddTaskFragment extends Fragment {
         task.setTimeStamp(calendar.getTime());
 
         viewModel.saveTask(task);
+    }
 
+    @Observer
+    public void successfullySaved(Boolean wasSuccessfullySaved) {
         navigation.goBack();
     }
 
