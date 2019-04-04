@@ -18,6 +18,7 @@ import pl.com.dspot.archiannotations.annotation.Observer;
 import pl.com.dspot.archiannotations.annotation.ViewModel;
 
 import static com.dspot.declex.actions.Action.$Populate;
+import static com.dspot.declex.example.todo.ui.tasklist.TaskToDoItemViewModel.canEditStatus;
 
 @EBinder
 @EFragment(R.layout.fragment_tasklist)
@@ -41,6 +42,12 @@ public class TaskListFragment extends Fragment {
     @Click(R.id.fab)
     void onFabClicked() {
         navigation.goToAddTaskFragment();
+    }
+
+    @Click
+    void buttonCheckDoneTasks() {
+        TaskToDoItemViewModel.canEditStatus = !TaskToDoItemViewModel.canEditStatus;
+        $Populate(taskList);
     }
 
     @Click(R.id.card_view_root)

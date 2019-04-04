@@ -1,5 +1,9 @@
 package com.dspot.declex.example.todo.ui.tasklist;
 
+import android.support.constraint.Group;
+import android.view.View;
+import android.widget.CheckBox;
+
 import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.api.ItemViewModel;
 import com.dspot.declex.example.todo.model.TaskToDo;
@@ -15,6 +19,8 @@ import pl.com.dspot.archiannotations.annotation.EViewModel;
 @EBean
 @EViewModel
 public class TaskToDoItemViewModel extends ItemViewModel<TaskToDo> {
+
+    public static boolean canEditStatus = false;
 
     @Bean
     Navigation navigation;
@@ -37,5 +43,22 @@ public class TaskToDoItemViewModel extends ItemViewModel<TaskToDo> {
 
     public void showDetails() {
         navigation.goToTaskDetails(model);
+    }
+
+    public void getDateGroup(Group dateGroup) {
+        if (canEditStatus) {
+            dateGroup.setVisibility(View.INVISIBLE);
+        } else {
+            dateGroup.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void getStatusCheckBox(CheckBox checkBox) {
+        checkBox.setChecked(model.getDone());
+        if (canEditStatus) {
+            checkBox.setVisibility(View.VISIBLE);
+        } else {
+            checkBox.setVisibility(View.INVISIBLE);
+        }
     }
 }
