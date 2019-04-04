@@ -2,6 +2,7 @@
 <android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view_root"
     style="@style/Widget.MaterialComponents.CardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,10 +20,10 @@
             android:layout_height="0dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:text=""
-            android:maxLines="1"
-            android:gravity="center_vertical"
             android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text=""
             android:textAlignment="gravity"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -37,8 +38,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="left"
-            app:constraint_referenced_ids="date,time"
-             />
+            app:constraint_referenced_ids="date,time" />
+
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"

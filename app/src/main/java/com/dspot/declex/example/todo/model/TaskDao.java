@@ -13,6 +13,9 @@ public abstract class TaskDao {
     @Query("select * from TaskToDo")
     public abstract LiveData<List<TaskToDo>> getAllTasks();
 
+    @Query("select * from TaskToDo where id=:id")
+    public abstract TaskToDo getTask(Long id);
+
     @Insert
     public abstract void insert(TaskToDo taskToDo);
 

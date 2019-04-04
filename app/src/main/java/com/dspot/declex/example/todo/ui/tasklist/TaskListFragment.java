@@ -43,4 +43,8 @@ public class TaskListFragment extends Fragment {
         navigation.goToAddTaskFragment();
     }
 
+    @Click(R.id.card_view_root)
+    public void showTaskDetails(TaskToDoItemViewModel model) {
+        model.showDetails();
+    }
 }

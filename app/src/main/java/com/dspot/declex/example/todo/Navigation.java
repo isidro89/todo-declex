@@ -1,6 +1,10 @@
 package com.dspot.declex.example.todo;
 
-import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
+
+import com.dspot.declex.example.todo.model.TaskToDo;
+import com.dspot.declex.example.todo.ui.taskdetail.TaskDetailFragment;
+import com.dspot.declex.example.todo.ui.taskdetail.TaskDetailFragment_;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
@@ -12,7 +16,8 @@ import static com.dspot.declex.Action.$TaskListFragment;
 public class Navigation {
 
     @RootContext
-    protected Activity activity;
+    protected AppCompatActivity activity;
+    private TaskDetailFragment taskDetailFragment;
 
     public void goBack() {
         activity.onBackPressed();
@@ -29,4 +34,10 @@ public class Navigation {
     public void goToAddTaskFragment() {
         $AddTaskFragment().transaction().addToBackStack("add_task_fragment");
     }
+
+    public void goToTaskDetails(TaskToDo task) {
+        taskDetailFragment = TaskDetailFragment_.builder().taskId(task.getId()).build();
+        taskDetailFragment.show(activity.getSupportFragmentManager(), null);
+    }
+
 }

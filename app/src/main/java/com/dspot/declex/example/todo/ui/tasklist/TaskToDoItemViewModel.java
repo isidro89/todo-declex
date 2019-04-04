@@ -1,8 +1,10 @@
 package com.dspot.declex.example.todo.ui.tasklist;
 
+import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.api.ItemViewModel;
 import com.dspot.declex.example.todo.model.TaskToDo;
 
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
 
 import java.text.SimpleDateFormat;
@@ -13,6 +15,9 @@ import pl.com.dspot.archiannotations.annotation.EViewModel;
 @EBean
 @EViewModel
 public class TaskToDoItemViewModel extends ItemViewModel<TaskToDo> {
+
+    @Bean
+    Navigation navigation;
 
     static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM", Locale.US);
 
@@ -28,5 +33,9 @@ public class TaskToDoItemViewModel extends ItemViewModel<TaskToDo> {
 
     public String getTime() {
         return simpleDateFormatForTime.format(model.getTimeStamp());
+    }
+
+    public void showDetails() {
+        navigation.goToTaskDetails(model);
     }
 }
