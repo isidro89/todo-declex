@@ -67,9 +67,15 @@ public class TaskToDoItemViewModel extends ItemViewModel<TaskToDo> {
         }
     }
 
-    @Background
     public void changeStatus(boolean isDone) {
         model.setDone(isDone);
+        updateDb(this.model);
+    }
+
+    @Background(delay = 300, serial = "status_updates")
+    /*delay here is to allow the check/uncheck animation run because updating the db triggers
+    the live data and list content is replace*/
+    protected void updateDb(TaskToDo model) {
         databaseInstance.get().taskDao().update(model);
     }
 }
