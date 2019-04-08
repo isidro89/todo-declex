@@ -42,33 +42,27 @@ public class DayListTest {
     @Test
     public void getIndexOfJan1_1900_Returns_0() {
         int expectedIndex = 0;
-        Calendar jan1_1900 = Calendar.getInstance();
-        jan1_1900.setTimeInMillis(-2208988800000L); // GMT: Monday, January 1, 1900 12:00:00 AM
-        jan1_1900.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date jan1_1900 = new Date(-2208988800000L); // GMT: Monday, January 1, 1900 12:00:00 AM
         assertEquals(expectedIndex, dayList.indexOf(jan1_1900));
     }
 
     @Test
     public void getIndexOfJan2_1900_Returns_1() {
         int expectedIndex = 1;
-        Calendar jan2_1900 = Calendar.getInstance();
-        jan2_1900.setTimeInMillis(-2208899671000L); // GMT: Tuesday, January 2, 1900 12:45:29 AM
-        jan2_1900.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date jan2_1900 = new Date(-2208899671000L); // GMT: Tuesday, January 2, 1900 12:45:29 AM
         assertEquals(expectedIndex, dayList.indexOf(jan2_1900));
     }
 
     @Test
     public void getIndexOfApril8_2019_Returns_43561() {
         int expectedIndex = 43561;
-        Calendar April_8th_2019 = Calendar.getInstance();
-        April_8th_2019.setTimeInMillis(1554749541000L); // GMT: Monday, April 8, 2019 6:52:21 PM
-        April_8th_2019.setTimeZone(TimeZone.getTimeZone("GMT"));
+        Date April_8th_2019 = new Date(1554749541000L); // GMT: Monday, April 8, 2019 6:52:21 PM
         assertEquals(expectedIndex, dayList.indexOf(April_8th_2019));
     }
 
     @Test
-    public void passingANonCalendarInstance_Returns_minus1() {
-        assertEquals(-1, dayList.indexOf(new Date()));
+    public void passingANonDateInstance_Returns_minus1() {
+        assertEquals(-1, dayList.indexOf(new Object()));
     }
 
     @Test
@@ -76,7 +70,7 @@ public class DayListTest {
         Calendar instance = Calendar.getInstance();
         instance.setTimeInMillis(-2208988800000L);
         instance.setTimeZone(TimeZone.getTimeZone("GMT"));
-        assertEquals(instance.getTimeInMillis(), dayList.get(0).getTimeInMillis());
+        assertEquals(instance.getTimeInMillis(), dayList.get(0).getTime());
     }
 
     @Test
@@ -84,7 +78,7 @@ public class DayListTest {
         Calendar instance = Calendar.getInstance();
         instance.setTimeInMillis(-2208902400000L); // GMT: Tuesday, January 2, 1900 12:45:29 AM
         instance.setTimeZone(TimeZone.getTimeZone("GMT"));
-        assertEquals(instance.getTimeInMillis(), dayList.get(1).getTimeInMillis());
+        assertEquals(instance.getTimeInMillis(), dayList.get(1).getTime());
     }
 
     @Test
@@ -92,6 +86,6 @@ public class DayListTest {
         Calendar instance = Calendar.getInstance();
         instance.setTimeInMillis(1554681600000L); //GMT: Monday, April 8, 2019 12:00:00 AM
         instance.setTimeZone(TimeZone.getTimeZone("GMT"));
-        assertEquals(instance.getTimeInMillis(), dayList.get(43561).getTimeInMillis());
+        assertEquals(instance.getTimeInMillis(), dayList.get(43561).getTime());
     }
 }

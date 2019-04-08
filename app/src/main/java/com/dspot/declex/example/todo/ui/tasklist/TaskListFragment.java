@@ -22,7 +22,6 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -66,6 +65,9 @@ public class TaskListFragment extends Fragment {
     @InstanceState
     boolean showAllTasks = true;
 
+    @InstanceState
+    Date selectedDay;
+
     @ViewById
     FloatingActionButton buttonViewModeToggle;
 
@@ -77,10 +79,16 @@ public class TaskListFragment extends Fragment {
     @AfterViews
     public void initializeViews() {
         dayList = new DayList();
+        initSelectedDay();
         setViewMode();
         setEditionMode(isEditing);
         dayListView = new ItemViewModelList<>(dayItemViewModel, dayList);
         $Populate(dayListView);
+    }
+
+    protected void initSelectedDay() {
+        if (selectedDay == null)
+            selectedDay = new Date(System.currentTimeMillis());
     }
 
     @Observer
@@ -135,9 +143,19 @@ public class TaskListFragment extends Fragment {
             buttonViewModeToggle.setImageResource(R.drawable.ic_date_range_black_24dp);
         } else {
             constraintLayout.setVisibility(View.VISIBLE);
-            viewModel.setDate(new Date(System.currentTimeMillis()));
-            dayListRecyclerView.scrollToPosition(dayList.indexOf(Calendar.getInstance()));
+            onlyShowTasksForSelectedDay();
             buttonViewModeToggle.setImageResource(R.drawable.ic_menu_black_24dp);
         }
+    }
+
+    @Click(R.id.day_item_root_layout)
+    public void onDaySelected(DayItemViewModel model) {
+        selectedDay = model.model;
+        onlyShowTasksForSelectedDay();
+    }
+
+    protected void onlyShowTasksForSelectedDay() {
+        viewModel.setDate(selectedDay);
+        dayListRecyclerView.scrollToPosition(dayList.indexOf(selectedDay));
     }
 }

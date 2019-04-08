@@ -4,23 +4,29 @@ import com.dspot.declex.example.todo.api.ItemViewModel;
 
 import org.androidannotations.annotations.EBean;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import pl.com.dspot.archiannotations.annotation.EViewModel;
 
 @EBean
 @EViewModel
-public class DayItemViewModel extends ItemViewModel<Calendar> {
+public class DayItemViewModel extends ItemViewModel<Date> {
 
+
+    static SimpleDateFormat simpleDateFormatForDayNumber = new SimpleDateFormat("d", Locale.US);
+
+    static SimpleDateFormat simpleDateFormatForDayName = new SimpleDateFormat("E", Locale.US);
 
 
     public String getDayNumber() {
-        return String.valueOf(model.get(Calendar.DAY_OF_MONTH));
+        return simpleDateFormatForDayNumber.format(model);
     }
 
     public String getDayName() {
-        return String.valueOf(model.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US));
+        return simpleDateFormatForDayName.format(model);
     }
 
 }
