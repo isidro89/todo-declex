@@ -3,6 +3,7 @@ package com.dspot.declex.example.todo.ui.tasklist;
 
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Group;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.CheckBox;
@@ -18,6 +19,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.Date;
 import java.util.List;
 
 import pl.com.dspot.archiannotations.annotation.EBinder;
@@ -47,9 +49,14 @@ public class TaskListFragment extends Fragment {
 
     @InstanceState
     boolean isEditing;
+    @InstanceState
+    boolean showAllTasks = true;
+    @ViewById
+    FloatingActionButton buttonViewModeToggle;
 
     @AfterViews
     public void initializeViews() {
+        setViewMode();
         setEditionMode(isEditing);
     }
 
@@ -90,5 +97,21 @@ public class TaskListFragment extends Fragment {
     @Click(R.id.statusCheckBox)
     public void toggleStatus(CheckBox statusCheckBox, TaskToDoItemViewModel model) {
         model.changeStatus(statusCheckBox.isChecked());
+    }
+
+    @Click(R.id.button_view_mode_toggle)
+    public void toggleViewMode() {
+        showAllTasks = !showAllTasks;
+        setViewMode();
+    }
+
+    protected void setViewMode() {
+        if (showAllTasks) {
+            viewModel.setDate(null);
+            buttonViewModeToggle.setImageResource(R.drawable.ic_menu_black_24dp);
+        } else {
+            viewModel.setDate(new Date(System.currentTimeMillis()));
+            buttonViewModeToggle.setImageResource(R.drawable.ic_date_range_black_24dp);
+        }
     }
 }
