@@ -47,8 +47,8 @@ public class TaskListViewModel extends ViewModel {
                     } else {
                         return Transformations.map(
                                 databaseInstance.get().taskDao().getTasksInRange(
-                                        timeStampOfBeginingOf(date),
-                                        timeStampOfEndOf(date)),
+                                        getAsTimeStampBeginningOf(date),
+                                        getAsTimeStampEndOf(date)),
                                 input -> new ItemViewModelList<>(itemViewModel, input));
                     }
                 });
@@ -63,12 +63,12 @@ public class TaskListViewModel extends ViewModel {
         dateMutableLiveData.setValue(date);
     }
 
-    protected Long timeStampOfBeginingOf(Date day) {
+    protected Long getAsTimeStampBeginningOf(Date day) {
         Calendar calendarDay = getBeginningOf(day);
         return calendarDay.getTimeInMillis();
     }
 
-    protected Long timeStampOfEndOf(Date day) {
+    protected Long getAsTimeStampEndOf(Date day) {
         Calendar calendarDay = getBeginningOf(day);
         calendarDay.add(Calendar.DAY_OF_YEAR, 1);
         return calendarDay.getTimeInMillis() - 1;
