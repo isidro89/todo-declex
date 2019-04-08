@@ -84,4 +84,16 @@ public class TaskListViewModel extends ViewModel {
         calendarDay.set(Calendar.MILLISECOND, 0);
         return calendarDay;
     }
+
+    protected List<Calendar> getMonthDays() {
+        getBeginninOfMonth();
+        return null;
+    }
+
+    private void getBeginninOfMonth() {
+        Calendar today = Calendar.getInstance();
+        today.add(Calendar.DAY_OF_MONTH, -1 * today.get(Calendar.DAY_OF_MONTH) + 1);
+    }
+
+
 }

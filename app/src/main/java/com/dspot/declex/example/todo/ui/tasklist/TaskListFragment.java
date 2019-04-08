@@ -5,12 +5,15 @@ import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Group;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 
 import com.dspot.declex.annotation.Populate;
 import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.R;
+import com.dspot.declex.example.todo.api.DayList;
+import com.dspot.declex.example.todo.api.ItemViewModelList;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -19,6 +22,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -38,8 +42,11 @@ public class TaskListFragment extends Fragment {
     @Bean
     Navigation navigation;
 
-    @Populate()
+    @Populate
     List<TaskToDoItemViewModel> taskList;
+
+    @Populate
+    List<DayItemViewModel> dayListView;
 
     @ViewById
     ConstraintLayout statusEditionLayout;
@@ -47,17 +54,33 @@ public class TaskListFragment extends Fragment {
     @ViewById(R.id.fab_group)
     Group groupOfFabs;
 
+    @ViewById(R.id.layout_list_of_days)
+    ConstraintLayout constraintLayout;
+
+    @ViewById(R.id.dayListView)
+    RecyclerView dayListRecyclerView;
+
     @InstanceState
     boolean isEditing;
+
     @InstanceState
     boolean showAllTasks = true;
+
     @ViewById
     FloatingActionButton buttonViewModeToggle;
 
+    @ViewModel
+    DayItemViewModel dayItemViewModel;
+
+    DayList dayList;
+
     @AfterViews
     public void initializeViews() {
+        dayList = new DayList();
         setViewMode();
         setEditionMode(isEditing);
+        dayListView = new ItemViewModelList<>(dayItemViewModel, dayList);
+        $Populate(dayListView);
     }
 
     @Observer
@@ -107,11 +130,14 @@ public class TaskListFragment extends Fragment {
 
     protected void setViewMode() {
         if (showAllTasks) {
+            constraintLayout.setVisibility(View.GONE);
             viewModel.setDate(null);
-            buttonViewModeToggle.setImageResource(R.drawable.ic_menu_black_24dp);
-        } else {
-            viewModel.setDate(new Date(System.currentTimeMillis()));
             buttonViewModeToggle.setImageResource(R.drawable.ic_date_range_black_24dp);
+        } else {
+            constraintLayout.setVisibility(View.VISIBLE);
+            viewModel.setDate(new Date(System.currentTimeMillis()));
+            dayListRecyclerView.scrollToPosition(dayList.indexOf(Calendar.getInstance()));
+            buttonViewModeToggle.setImageResource(R.drawable.ic_menu_black_24dp);
         }
     }
 }

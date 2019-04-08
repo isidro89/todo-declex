@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
+
+    <include android:id="@+id/layout_list_of_days" layout="@layout/list_of_days" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/taskList"
@@ -13,7 +16,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_list_of_days"
         tools:listitem="@layout/task_item" />
 
     <android.support.design.widget.FloatingActionButton
@@ -47,8 +50,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/button_check_done_tasks"
         app:layout_constraintEnd_toStartOf="@+id/fab"
         app:layout_constraintStart_toEndOf="@+id/button_check_done_tasks"
-        app:srcCompat="@drawable/ic_date_range_black_24dp"
-         />
+        app:srcCompat="@drawable/ic_date_range_black_24dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
