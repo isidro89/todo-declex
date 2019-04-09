@@ -32,7 +32,7 @@ public class Navigation {
     }
 
     public void goToAddTaskFragment() {
-        $AddTaskFragment().transaction().addToBackStack("add_task_fragment");
+        $AddTaskFragment().transaction().addToBackStack("Add a task");
     }
 
     public void goToTaskDetails(TaskToDo task) {

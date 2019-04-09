@@ -28,7 +28,13 @@ public class MainActivity extends AppCompatActivity {
             navigation.goToTaskListFragment();
         }
         getSupportFragmentManager().addOnBackStackChangedListener(
-                () -> displayHomeUpIfNeeded());
+                () -> {
+                    if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                        toolbar.setTitle(getSupportFragmentManager().getBackStackEntryAt(0).getName());
+                    } else
+                        toolbar.setTitle(R.string.app_name);
+                    displayHomeUpIfNeeded();
+                });
 
     }
 
@@ -39,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        toolbar.postDelayed(() -> getSupportFragmentManager().popBackStack(),100); //delay here is for allowing ripple animation to run
+        toolbar.postDelayed(() -> getSupportFragmentManager().popBackStack(), 100); //delay here is for allowing ripple animation to run
         return true;
     }
 
