@@ -142,20 +142,25 @@ public class TaskListFragment extends Fragment {
             viewModel.setDate(null);
             buttonViewModeToggle.setImageResource(R.drawable.ic_date_range_black_24dp);
         } else {
-            constraintLayout.setVisibility(View.VISIBLE);
             onlyShowTasksForSelectedDay();
             buttonViewModeToggle.setImageResource(R.drawable.ic_menu_black_24dp);
+            constraintLayout.setVisibility(View.VISIBLE);
         }
     }
 
     @Click(R.id.day_item_root_layout)
     public void onDaySelected(DayItemViewModel model) {
+        int indexOfCurrentSelectedDay = dayList.indexOf(selectedDay);
         selectedDay = model.model;
+        int indexOfNewSelectedDay = dayList.indexOf(selectedDay);
         onlyShowTasksForSelectedDay();
+        dayListRecyclerView.getAdapter().notifyItemChanged(indexOfCurrentSelectedDay);
+        dayListRecyclerView.getAdapter().notifyItemChanged(indexOfNewSelectedDay);
     }
 
     protected void onlyShowTasksForSelectedDay() {
         viewModel.setDate(selectedDay);
+        dayItemViewModel.setSelectedDate(selectedDay);
         dayListRecyclerView.scrollToPosition(dayList.indexOf(selectedDay));
     }
 }

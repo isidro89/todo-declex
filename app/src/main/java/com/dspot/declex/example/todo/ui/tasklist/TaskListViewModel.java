@@ -76,24 +76,13 @@ public class TaskListViewModel extends ViewModel {
 
     protected Calendar getBeginningOf(Date day) {
         Calendar calendarDay = Calendar.getInstance();
-        calendarDay.setTime(day);
         calendarDay.setTimeZone(TimeZone.getTimeZone("UTC"));
+        calendarDay.setTime(day);
         calendarDay.set(Calendar.HOUR_OF_DAY, 0);
         calendarDay.set(Calendar.MINUTE, 0);
         calendarDay.set(Calendar.SECOND, 0);
         calendarDay.set(Calendar.MILLISECOND, 0);
         return calendarDay;
     }
-
-    protected List<Calendar> getMonthDays() {
-        getBeginninOfMonth();
-        return null;
-    }
-
-    private void getBeginninOfMonth() {
-        Calendar today = Calendar.getInstance();
-        today.add(Calendar.DAY_OF_MONTH, -1 * today.get(Calendar.DAY_OF_MONTH) + 1);
-    }
-
 
 }
