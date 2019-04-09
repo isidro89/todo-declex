@@ -27,6 +27,20 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             navigation.goToTaskListFragment();
         }
+        getSupportFragmentManager().addOnBackStackChangedListener(
+                () -> displayHomeUpIfNeeded());
+
+    }
+
+    public void displayHomeUpIfNeeded() {
+        boolean canGoBack = getSupportFragmentManager().getBackStackEntryCount() > 0;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(canGoBack);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        toolbar.postDelayed(() -> getSupportFragmentManager().popBackStack(),100); //delay here is for allowing ripple animation to run
+        return true;
     }
 
     @AfterViews
