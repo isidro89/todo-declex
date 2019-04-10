@@ -16,9 +16,6 @@ import org.androidannotations.annotations.ViewById;
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
-    @ViewById
-    Toolbar toolbar;
-
     @Bean
     Navigation navigation;
 
@@ -30,9 +27,12 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().addOnBackStackChangedListener(
                 () -> {
                     if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                        toolbar.setTitle(getSupportFragmentManager().getBackStackEntryAt(0).getName());
-                    } else
-                        toolbar.setTitle(R.string.app_name);
+                        // TODO: 4/10/2019 set title in title view that'll be added
+//                        toolbar.setTitle(getSupportFragmentManager().getBackStackEntryAt(0).getName());
+                    } else{
+                        // TODO: 4/10/2019 set title in title view that'll be added
+//                        toolbar.setTitle(R.string.app_name);
+                    }
                     displayHomeUpIfNeeded();
                 });
 
@@ -40,19 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void displayHomeUpIfNeeded() {
         boolean canGoBack = getSupportFragmentManager().getBackStackEntryCount() > 0;
-        getSupportActionBar().setDisplayHomeAsUpEnabled(canGoBack);
+        // TODO: 4/10/2019 show arrow if canGoBack
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        toolbar.postDelayed(() -> getSupportFragmentManager().popBackStack(), 100); //delay here is for allowing ripple animation to run
-        return true;
-    }
-
-    @AfterViews
-    public void setUpViews() {
-        setSupportActionBar(toolbar);
-    }
-
+    // TODO: 4/10/2019 onArrowClick do getSupportFragmentManager().popBackStack()
 
 }
