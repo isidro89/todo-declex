@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true">
 
-    <include android:id="@+id/layout_list_of_days" layout="@layout/list_of_days" />
+    <include
+        android:id="@+id/layout_list_of_days"
+        layout="@layout/list_of_days" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/taskList"
@@ -18,6 +20,15 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_list_of_days"
         tools:listitem="@layout/task_item" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.32"
+        android:background="@drawable/top_to_bottom_gradient_gb"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/button_check_done_tasks"

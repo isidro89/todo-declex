@@ -4,11 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="8dp"
-    android:paddingHorizontal="16dp"
     tools:context=".ui.MainActivity">
 
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.9"
+        android:src="@drawable/bkg"/>
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
