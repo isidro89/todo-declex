@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 
 import com.dspot.declex.annotation.Populate;
 import com.dspot.declex.example.todo.Navigation;
@@ -71,6 +72,12 @@ public class TaskListFragment extends Fragment {
     @ViewById
     FloatingActionButton buttonViewModeToggle;
 
+    @ViewById
+    FloatingActionButton fab;
+
+    @ViewById
+    FloatingActionButton buttonCheckDoneTasks;
+
     @ViewModel
     DayItemViewModel dayItemViewModel;
 
@@ -84,6 +91,15 @@ public class TaskListFragment extends Fragment {
         setEditionMode(isEditing);
         dayListView = new ItemViewModelList<>(dayItemViewModel, dayList);
         $Populate(dayListView);
+        makeFabIconsMatchFabSize();
+    }
+
+    protected void makeFabIconsMatchFabSize() {
+        //as per https://stackoverflow.com/a/51913347/9316168
+        //this has to be done to increase icon size
+        fab.setScaleType(ImageView.ScaleType.CENTER);
+        buttonCheckDoneTasks.setScaleType(ImageView.ScaleType.CENTER);
+        buttonViewModeToggle.setScaleType(ImageView.ScaleType.CENTER);
     }
 
     protected void initSelectedDay() {
@@ -140,7 +156,7 @@ public class TaskListFragment extends Fragment {
         if (showAllTasks) {
             constraintLayout.setVisibility(View.GONE);
             viewModel.setDate(null);
-            buttonViewModeToggle.setImageResource(R.drawable.ic_date_range_black_24dp);
+            buttonViewModeToggle.setImageResource(R.drawable.fab_view_mode_toggle_src);
         } else {
             onlyShowTasksForSelectedDay();
             buttonViewModeToggle.setImageResource(R.drawable.ic_menu_black_24dp);
