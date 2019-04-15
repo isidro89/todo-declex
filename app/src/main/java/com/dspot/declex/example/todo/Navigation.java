@@ -17,7 +17,6 @@ public class Navigation {
 
     @RootContext
     protected AppCompatActivity activity;
-    private TaskDetailFragment taskDetailFragment;
 
     public void goBack() {
         activity.onBackPressed();
@@ -32,11 +31,12 @@ public class Navigation {
     }
 
     public void goToAddTaskFragment() {
-        $AddTaskFragment().transaction().addToBackStack("Add a task");
+        $AddTaskFragment().transaction().addToBackStack("Add a task").setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out, android.R.animator.fade_in, android.R.animator.fade_out);
+
     }
 
     public void goToTaskDetails(TaskToDo task) {
-        taskDetailFragment = TaskDetailFragment_.builder().taskId(task.getId()).build();
+        TaskDetailFragment taskDetailFragment = TaskDetailFragment_.builder().taskId(task.getId()).build();
         taskDetailFragment.show(activity.getSupportFragmentManager(), null);
     }
 
