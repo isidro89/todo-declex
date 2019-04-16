@@ -1,7 +1,9 @@
 package com.dspot.declex.example.todo.ui.tasklist;
 
 import android.graphics.Color;
-import android.support.constraint.ConstraintLayout;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.dspot.declex.example.todo.api.ItemViewModel;
 
@@ -41,12 +43,17 @@ public class DayItemViewModel extends ItemViewModel<Date> {
         return simpleDateFormatForDayName.format(model);
     }
 
-    public void getDayItemRootLayout(ConstraintLayout layout) {
+    public void getBackground(ImageView background, TextView day_number, TextView day_name) {
         long timeDiff = selectedDay.getTime() - model.getTime();
-        if (selectedDay != null && 0 <= timeDiff && timeDiff < A_DAY_IN_MILLIS)
-            layout.setBackgroundColor(Color.YELLOW);
-        else
-            layout.setBackgroundColor(Color.WHITE);
+        if (selectedDay != null && 0 <= timeDiff && timeDiff < A_DAY_IN_MILLIS) {
+            background.setVisibility(View.VISIBLE);
+            day_name.setTextColor(Color.WHITE);
+            day_number.setTextColor(Color.WHITE);
+        } else {
+            background.setVisibility(View.INVISIBLE);
+            day_name.setTextColor(Color.BLACK);
+            day_number.setTextColor(Color.BLACK);
+        }
     }
 
     public void setSelectedDate(Date selectedDate) {

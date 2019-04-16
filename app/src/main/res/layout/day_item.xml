@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="8dp"
+    android:id="@+id/day_item_root_layout"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/day_item_root_layout">
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:visibility="invisible"
+        android:id="@+id/background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/day_item_gradient_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/day_number"
@@ -17,12 +27,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:textColor="#fff"
         android:textStyle="bold"
-        android:textColor="#000"
-        tools:text="22"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="22" />
 
     <TextView
         android:id="@+id/day_name"
@@ -33,9 +43,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="#fff"
         android:textSize="12sp"
-        tools:text="Wed"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/day_number" />
+        app:layout_constraintTop_toBottomOf="@+id/day_number"
+        tools:text="Wed" />
 </android.support.constraint.ConstraintLayout>
