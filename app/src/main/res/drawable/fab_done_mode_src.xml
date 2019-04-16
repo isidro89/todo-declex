@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true">
+    <item>
         <layer-list>
-            <item android:drawable="@drawable/add" />
-            <item>
-                <shape android:shape="oval">
-                    <solid android:color="#55FFFFFF" />
-                </shape>
-            </item>
+            <item android:drawable="@drawable/done_mode"></item>
+            <item android:drawable="@drawable/fab_ripple" />
         </layer-list>
     </item>
-    <item android:drawable="@drawable/add"></item>
 </selector>

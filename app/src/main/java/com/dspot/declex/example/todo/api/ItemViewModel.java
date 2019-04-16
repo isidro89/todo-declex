@@ -26,7 +26,7 @@ public class ItemViewModel<T> extends ViewModel {
 
     public void setPosition(int position) {
 
-        if(models == null || models.size() == position) return;
+        if (models == null || models.size() == position) return;
 
         this.model = models.get(position);
         this.position = position;
@@ -67,7 +67,7 @@ public class ItemViewModel<T> extends ViewModel {
         if (properties == null) return null;
 
         Object value = properties.get(key);
-        return value == null? null : (V) value;
+        return value == null ? null : (V) value;
     }
 
     protected void notifyModelsModified() {

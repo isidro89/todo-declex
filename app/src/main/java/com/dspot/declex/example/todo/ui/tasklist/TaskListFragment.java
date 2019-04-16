@@ -159,7 +159,7 @@ public class TaskListFragment extends Fragment {
             buttonViewModeToggle.setImageResource(R.drawable.fab_view_mode_toggle_src);
         } else {
             onlyShowTasksForSelectedDay();
-            buttonViewModeToggle.setImageResource(R.drawable.ic_menu_black_24dp);
+            buttonViewModeToggle.setImageResource(R.drawable.fab_view_mode_list_src);
             constraintLayout.setVisibility(View.VISIBLE);
         }
     }

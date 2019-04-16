@@ -15,8 +15,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class ItemViewModelList<E extends ItemViewModel> extends AbstractList<E>
-        implements RandomAccess, Serializable, DeclexAdapterList
-{
+        implements RandomAccess, Serializable, DeclexAdapterList {
     private static final long serialVersionUID = 0L;
 
     private final int modelsSize;
@@ -49,8 +48,8 @@ public class ItemViewModelList<E extends ItemViewModel> extends AbstractList<E>
 
     public E get(int index) {
         if (index < 0 || index >= modelsSize)
-            throw new IndexOutOfBoundsException("Index: "+index+
-                    ", Size: "+ modelsSize);
+            throw new IndexOutOfBoundsException("Index: " + index +
+                    ", Size: " + modelsSize);
 
         //It sets the default position of the ItemViewModel when "get" is called
         //this simplifies the use of ItemViewModelList in View Adapters
@@ -70,7 +69,7 @@ public class ItemViewModelList<E extends ItemViewModel> extends AbstractList<E>
     public <T> T[] toArray(T[] a) {
         final int n = this.modelsSize;
         if (a.length < n) {
-            a = (T[])java.lang.reflect.Array
+            a = (T[]) java.lang.reflect.Array
                     .newInstance(a.getClass().getComponentType(), n);
             if (element != null)
                 Arrays.fill(a, 0, n, element);
@@ -114,11 +113,11 @@ public class ItemViewModelList<E extends ItemViewModel> extends AbstractList<E>
 
     /**
      * Returns true if the specified arguments are equal, or both null.
-     *
+     * <p>
      * NB: Do not replace with Object.equals until JDK-8015417 is resolved.
      */
     static boolean eq(Object o1, Object o2) {
-        return o1==null ? o2==null : o1.equals(o2);
+        return o1 == null ? o2 == null : o1.equals(o2);
     }
 
 }

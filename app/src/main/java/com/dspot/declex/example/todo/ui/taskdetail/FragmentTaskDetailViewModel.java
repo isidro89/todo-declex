@@ -3,7 +3,6 @@ package com.dspot.declex.example.todo.ui.taskdetail;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.dspot.declex.annotation.Populate;
 import com.dspot.declex.example.todo.DatabaseInstance;
 import com.dspot.declex.example.todo.model.TaskToDo;
 

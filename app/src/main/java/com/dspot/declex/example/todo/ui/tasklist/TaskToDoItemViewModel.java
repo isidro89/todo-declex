@@ -74,7 +74,7 @@ public class TaskToDoItemViewModel extends ItemViewModel<TaskToDo> {
 
     @Background(delay = 300, serial = "status_updates")
     /*delay here is to allow the check/uncheck animation run because updating the db triggers
-    the live data and list content is replace*/
+    the live data and list content is replaced*/
     protected void updateDb(TaskToDo model) {
         databaseInstance.get().taskDao().update(model);
     }
