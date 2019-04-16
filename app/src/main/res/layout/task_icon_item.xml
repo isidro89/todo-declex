@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/task_icon_root_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="14dp"
+    android:animateLayoutChanges="true">
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/task_icon_background"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/background"
+        app:layout_constraintEnd_toEndOf="@+id/background"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toTopOf="@+id/background"
+        app:srcCompat="@drawable/event" />
+
+    <ImageView
+        android:id="@+id/dot"
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/circle_gray"
+        tools:visibility="visible" />
+
+    <android.support.constraint.Group
+        android:id="@+id/selectionIndicators"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="dot,background" />
+</android.support.constraint.ConstraintLayout>

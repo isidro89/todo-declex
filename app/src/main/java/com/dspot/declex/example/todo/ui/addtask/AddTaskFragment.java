@@ -2,12 +2,15 @@ package com.dspot.declex.example.todo.ui.addtask;
 
 
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
+import com.dspot.declex.annotation.Populate;
 import com.dspot.declex.annotation.Recollect;
 import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.R;
+import com.dspot.declex.example.todo.api.ItemViewModelList;
 import com.dspot.declex.example.todo.model.TaskToDo;
 
 import org.androidannotations.annotations.AfterViews;
@@ -19,6 +22,8 @@ import org.androidannotations.annotations.ViewById;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 import pl.com.dspot.archiannotations.annotation.EBinder;
@@ -26,6 +31,7 @@ import pl.com.dspot.archiannotations.annotation.Observer;
 import pl.com.dspot.archiannotations.annotation.ViewModel;
 
 import static com.dspot.declex.actions.Action.$DateDialog;
+import static com.dspot.declex.actions.Action.$Populate;
 import static com.dspot.declex.actions.Action.$Recollect;
 import static com.dspot.declex.actions.Action.$TimeDialog;
 import static com.dspot.declex.api.action.ActionsTools.$inject;
@@ -46,6 +52,9 @@ public class AddTaskFragment extends Fragment {
     @ViewModel
     AddTaskViewModel viewModel;
 
+    @ViewModel
+    TaskIconItemViewModel taskIconItemViewModel;
+
     @Recollect(validate = true)
     TaskToDo task = new TaskToDo();
 
@@ -55,10 +64,32 @@ public class AddTaskFragment extends Fragment {
     @ViewById
     TextView timeView;
 
+    @ViewById(R.id.iconList)
+    RecyclerView iconRecyclerView;
+
+
+    @Populate
+    List<TaskIconItemViewModel> iconList;
+
+    List<Integer> iconResIds;
+
     @AfterViews
     public void init() {
         setDateToDateView();
         setTimeToTimeView();
+        initIconList();
+    }
+
+    protected void initIconList() {
+        iconResIds = new LinkedList<>();
+        iconResIds.add(R.drawable.shop);
+        iconResIds.add(R.drawable.sport);
+        iconResIds.add(R.drawable.place);
+        iconResIds.add(R.drawable.event);
+        iconResIds.add(R.drawable.gym);
+        iconResIds.add(R.drawable.other);
+        iconList = new ItemViewModelList<>(taskIconItemViewModel, iconResIds);
+        $Populate(iconList);
     }
 
     protected void setDateToDateView() {
@@ -120,5 +151,10 @@ public class AddTaskFragment extends Fragment {
         calendar.set(Calendar.MINUTE, minute);
 
         setTimeToTimeView();
+    }
+
+    @Click(R.id.task_icon_root_view)
+    public void selectIcon(TaskIconItemViewModel model) {
+        taskIconItemViewModel.selectIcon(model.getIconResId());
     }
 }
