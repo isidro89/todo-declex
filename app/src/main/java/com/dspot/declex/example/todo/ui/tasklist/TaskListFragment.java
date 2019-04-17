@@ -87,16 +87,18 @@ public class TaskListFragment extends Fragment {
     public void initializeViews() {
         dayList = new DayList();
         initSelectedDay();
+
         setViewMode();
         setEditionMode(isEditing);
+        makeFabIconsMatchFabSize();
+
         dayListView = new ItemViewModelList<>(dayItemViewModel, dayList);
         $Populate(dayListView);
-        makeFabIconsMatchFabSize();
     }
 
     protected void makeFabIconsMatchFabSize() {
-        //as per https://stackoverflow.com/a/51913347/9316168
-        //this has to be done to increase icon size
+        /*as per https://stackoverflow.com/a/51913347/9316168
+        this has to be done to increase icon size*/
         fab.setScaleType(ImageView.ScaleType.CENTER);
         buttonCheckDoneTasks.setScaleType(ImageView.ScaleType.CENTER);
         buttonViewModeToggle.setScaleType(ImageView.ScaleType.CENTER);
