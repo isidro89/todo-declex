@@ -89,7 +89,16 @@ public class AddTaskFragment extends Fragment {
         iconResIds.add(R.drawable.gym);
         iconResIds.add(R.drawable.other);
         iconList = new ItemViewModelList<>(taskIconItemViewModel, iconResIds);
+
+        setIconMargin();
+
         $Populate(iconList);
+    }
+
+    protected void setIconMargin() {
+        MarginItemDecoration marginItemDecoration =
+                MarginItemDecoration.newBuilder().marginBetween(R.dimen.icon_margin).orientationMode(MarginItemDecoration.OrientationMode.HORIZONTAL).build();
+        iconRecyclerView.addItemDecoration(marginItemDecoration);
     }
 
     protected void setDateToDateView() {
