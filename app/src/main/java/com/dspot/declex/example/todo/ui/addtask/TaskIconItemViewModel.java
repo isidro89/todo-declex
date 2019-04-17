@@ -3,7 +3,6 @@ package com.dspot.declex.example.todo.ui.addtask;
 import android.support.constraint.Group;
 import android.widget.ImageView;
 
-import com.dspot.declex.example.todo.R;
 import com.dspot.declex.example.todo.api.ItemViewModel;
 
 import org.androidannotations.annotations.AfterInject;
@@ -23,7 +22,7 @@ public class TaskIconItemViewModel extends ItemViewModel<Integer> {
 
     public static final float ALPHA_MAX_VALUE = 0.12f;
     public static final float ALPHA_MIN_VALUE = 0f;
-    protected Integer selectedIcon = R.drawable.event;
+    protected Integer selectedIcon;
     private List<Group> iconBackgrounds;
 
     @AfterInject
@@ -32,20 +31,23 @@ public class TaskIconItemViewModel extends ItemViewModel<Integer> {
     }
 
     void selectIcon(Integer iconResId) {
-        hideBackground(this.selectedIcon);
-        showBackground(iconResId);
+        if (iconBackgrounds.size() > 0) {
+            if (this.selectedIcon != null)
+                hideBackground(this.selectedIcon);
+            showBackground(iconResId);
+        }
         this.selectedIcon = iconResId;
     }
 
     private void showBackground(Integer iconResId) {
-        animateAlpha(iconResId, VISIBLE);
+        changeVisibility(iconResId, VISIBLE);
     }
 
     private void hideBackground(Integer selectedIcon) {
-        animateAlpha(selectedIcon, INVISIBLE);
+        changeVisibility(selectedIcon, INVISIBLE);
     }
 
-    private void animateAlpha(Integer selectedIcon, int visibility) {
+    private void changeVisibility(Integer selectedIcon, int visibility) {
         iconBackgrounds.get(getModels().indexOf(selectedIcon)).setVisibility(visibility);
         iconBackgrounds.get(getModels().indexOf(selectedIcon)).requestLayout();
     }
@@ -56,7 +58,7 @@ public class TaskIconItemViewModel extends ItemViewModel<Integer> {
 
     void getSelectionIndicators(Group selectionIndicators) {
         this.iconBackgrounds.add(selectionIndicators);
-        if (selectedIcon.intValue() == model.intValue())
+        if (selectedIcon != null && selectedIcon.intValue() == model.intValue())
             selectionIndicators.setVisibility(VISIBLE);
         else
             selectionIndicators.setVisibility(INVISIBLE);

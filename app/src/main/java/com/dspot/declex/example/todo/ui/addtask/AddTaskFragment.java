@@ -65,6 +65,9 @@ public class AddTaskFragment extends Fragment {
     TextInputEditText taskTitle;
 
     @ViewById
+    TextInputEditText taskDescription;
+
+    @ViewById
     TextView dateView;
 
     @ViewById
@@ -126,7 +129,10 @@ public class AddTaskFragment extends Fragment {
 
         setIconMargin();
 
+        taskIconItemViewModel.selectIcon(R.drawable.shop);
+
         $Populate(iconList);
+
     }
 
     protected void setIconMargin() {
@@ -147,8 +153,18 @@ public class AddTaskFragment extends Fragment {
     @Observer
     public void successfullySaved(Boolean wasSuccessfullySaved) {
         if (wasSuccessfullySaved) {
+            clearFields();
             navigation.goBack();
         }
+    }
+
+    protected void clearFields() {
+        taskTitle.setText("");
+        taskDescription.setText("");
+        calendar = Calendar.getInstance();
+        setTimeToTimeView();
+        setDateToDateView();
+        taskIconItemViewModel.selectIcon(R.drawable.shop);
     }
 
     @Touch(R.id.dateView)
