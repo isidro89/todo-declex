@@ -22,21 +22,24 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="AppTheme.Text.Label" parent="AppTheme">
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">@font/lato_black</item>
         <item name="android:textColor">#33181743</item>
     </style>
 
     <style name="AppTheme.Text.Input" parent="Base.Widget.MaterialComponents.TextInputEditText">
         <item name="android:padding">8dp</item>
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">@font/lato_regular</item>
         <item name="android:textColor">#181743</item>
     </style>
 
     <style name="AppTheme.Text.Title" parent="AppTheme">
-        <item name="android:padding">8dp</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/baloo_regular</item>
         <item name="android:textColor">#181743</item>
         <item name="android:textAllCaps">true</item>
