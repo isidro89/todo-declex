@@ -1,8 +1,11 @@
 package com.dspot.declex.example.todo.ui.addtask;
 
 
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
@@ -59,6 +62,9 @@ public class AddTaskFragment extends Fragment {
     TaskToDo task = new TaskToDo();
 
     @ViewById
+    TextInputEditText taskTitle;
+
+    @ViewById
     TextView dateView;
 
     @ViewById
@@ -75,9 +81,37 @@ public class AddTaskFragment extends Fragment {
 
     @AfterViews
     public void init() {
+        initErrorClearer();
         setDateToDateView();
         setTimeToTimeView();
         initIconList();
+    }
+
+    public void initErrorClearer() {
+        taskTitle.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                taskTitle.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    protected void setDateToDateView() {
+        dateView.setText(simpleDateFormat.format(calendar.getTime()));
+    }
+
+    protected void setTimeToTimeView() {
+        timeView.setText(simpleDateFormatForTime.format(calendar.getTime()));
     }
 
     protected void initIconList() {
@@ -101,14 +135,6 @@ public class AddTaskFragment extends Fragment {
         iconRecyclerView.addItemDecoration(marginItemDecoration);
     }
 
-    protected void setDateToDateView() {
-        dateView.setText(simpleDateFormat.format(calendar.getTime()));
-    }
-
-    protected void setTimeToTimeView() {
-        timeView.setText(simpleDateFormatForTime.format(calendar.getTime()));
-    }
-
     @Click
     void buttonAddTask() {
         $Recollect(task);
@@ -127,7 +153,7 @@ public class AddTaskFragment extends Fragment {
 
     @Touch(R.id.dateView)
     // I used this annotation here instead of @Click because due to the style
-    // (@style/Base.Widget.MaterialComponents.TextInputEditText) the 1st time the user clicks this
+    // (@style/Base.Widget.MaterialComponents.ErrorDelegatorTextInputEditText) the 1st time the user clicks this
     // view the dialog doesn't appear
     public void pickDate(MotionEvent motionEvent) {
         if (motionEvent.getAction() != MotionEvent.ACTION_DOWN)
