@@ -14,4 +14,19 @@ public class Converters {
     public static Long dateToTimestamp(Date date) {
         return date == null ? null : date.getTime();
     }
+
+    @TypeConverter
+    public static Integer fromTaskCategory(TaskCategory category) {
+        if (category == null) {
+            return 0;//OTHER
+        }
+        return category.ordinal();
+    }
+
+    @TypeConverter
+    public TaskCategory toTaskCategory(Integer ordinal) {
+        if (0 < ordinal && ordinal < TaskCategory.values().length)
+            return TaskCategory.values()[ordinal];
+        else return TaskCategory.OTHER;
+    }
 }

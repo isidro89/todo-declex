@@ -59,5 +59,6 @@ dependencies {
     testImplementation "org.mockito:mockito-core:2.24.0"
     testImplementation "org.robolectric:robolectric:4.2"
     testImplementation "org.robolectric:shadows-supportv4:3.8"
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
 }

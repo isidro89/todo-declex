@@ -15,6 +15,7 @@ import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.R;
 import com.dspot.declex.example.todo.api.ItemViewModelList;
 import com.dspot.declex.example.todo.model.TaskToDo;
+import com.dspot.declex.example.todo.ui.Map;
 import com.dspot.declex.example.todo.ui.view.MarginItemDecoration;
 
 import org.androidannotations.annotations.AfterViews;
@@ -142,12 +143,13 @@ public class AddTaskFragment extends Fragment {
         iconRecyclerView.addItemDecoration(marginItemDecoration);
     }
 
+
     @Click
     void buttonAddTask() {
         $Recollect(task);
         task.setTimeStamp(calendar.getTime());
         task.setDone(false);
-
+        task.setCategory(Map.getCategory(taskIconItemViewModel.getSelectedIcon()));
         viewModel.saveTask(task);
     }
 

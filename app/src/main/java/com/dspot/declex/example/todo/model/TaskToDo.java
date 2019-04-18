@@ -24,6 +24,8 @@ public class TaskToDo {
 
     private Boolean done;
 
+    private TaskCategory category;
+
     public Long getId() {
         return id;
     }
@@ -62,5 +64,13 @@ public class TaskToDo {
 
     public void setDone(Boolean done) {
         this.done = done;
+    }
+
+    public TaskCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(TaskCategory category) {
+        this.category = category;
     }
 }
