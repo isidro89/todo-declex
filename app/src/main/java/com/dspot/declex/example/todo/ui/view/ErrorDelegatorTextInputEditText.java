@@ -5,8 +5,6 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.util.AttributeSet;
 
-import com.dspot.declex.example.todo.api.ViewUtils;
-
 public class ErrorDelegatorTextInputEditText extends TextInputEditText {
 
     public ErrorDelegatorTextInputEditText(Context context) {
@@ -37,6 +35,6 @@ public class ErrorDelegatorTextInputEditText extends TextInputEditText {
          the view hierarchy as written in XML" (https://developer.android.com/reference/android/support/design/widget/TextInputLayout.html)
          we need to go up the view tree until we find the TextInputInputLayout
          */
-        return ViewUtils.getFirstParent(this, TextInputLayout.class);
+        return Util.getFirstParent(this, TextInputLayout.class);
     }
 }

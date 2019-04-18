@@ -1,8 +1,8 @@
-package com.dspot.declex.example.todo.api;
+package com.dspot.declex.example.todo.ui.view;
 
 import android.view.View;
 
-public class ViewUtils {
+public class Util {
 
     /*Taken from this Stack Overflow answer: https://stackoverflow.com/a/41984474/9402979
     * */
