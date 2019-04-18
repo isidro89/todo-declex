@@ -161,7 +161,7 @@ public class AddTaskFragment extends Fragment {
         }
     }
 
-    protected void clearFields() {
+    public void clearFields() {
         taskTitle.setText("");
         taskDescription.setText("");
         calendar = Calendar.getInstance();
