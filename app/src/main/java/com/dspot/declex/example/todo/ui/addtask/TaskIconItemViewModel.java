@@ -20,8 +20,6 @@ import static android.view.View.VISIBLE;
 @EViewModel
 public class TaskIconItemViewModel extends ItemViewModel<Integer> {
 
-    public static final float ALPHA_MAX_VALUE = 0.12f;
-    public static final float ALPHA_MIN_VALUE = 0f;
     protected Integer selectedIcon;
     private List<Group> iconBackgrounds;
 
