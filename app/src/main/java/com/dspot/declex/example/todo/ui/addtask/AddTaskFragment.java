@@ -15,6 +15,7 @@ import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.R;
 import com.dspot.declex.example.todo.api.ItemViewModelList;
 import com.dspot.declex.example.todo.model.TaskToDo;
+import com.dspot.declex.example.todo.ui.view.MarginItemDecoration;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;

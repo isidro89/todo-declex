@@ -1,4 +1,4 @@
-package com.dspot.declex.example.todo.ui.addtask;
+package com.dspot.declex.example.todo.ui.view;
 
 import android.content.res.Resources;
 import android.graphics.Rect;
