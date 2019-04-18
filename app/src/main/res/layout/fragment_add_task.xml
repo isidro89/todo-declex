@@ -64,7 +64,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView2">
 
-                <com.dspot.declex.example.todo.ui.addtask.ErrorDelegatorTextInputEditText
+                <com.dspot.declex.example.todo.ui.view.ErrorDelegatorTextInputEditText
                     android:id="@+id/task_title"
                     style="@style/AppTheme.Text.Input"
                     android:layout_width="match_parent"
