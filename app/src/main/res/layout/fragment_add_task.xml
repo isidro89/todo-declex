@@ -188,19 +188,13 @@
 
 
     <android.support.v7.widget.AppCompatButton
+        style="@style/AppTheme.Button"
         android:id="@+id/button_add_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/button_background"
-        android:paddingLeft="50dp"
-        android:paddingTop="11dp"
-        android:paddingRight="50dp"
-        android:paddingBottom="14dp"
         android:text="@string/add"
-        android:textAllCaps="false"
         android:textColor="#fff"
-        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
