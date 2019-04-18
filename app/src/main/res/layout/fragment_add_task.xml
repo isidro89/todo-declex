@@ -44,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:orientation="horizontal"
+                android:overScrollMode="never"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -188,8 +189,8 @@
 
 
     <android.support.v7.widget.AppCompatButton
-        style="@style/AppTheme.Button"
         android:id="@+id/button_add_task"
+        style="@style/AppTheme.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
