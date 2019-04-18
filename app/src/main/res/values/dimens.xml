@@ -1,4 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="icon_margin">14dp</dimen>
+    <dimen name="distance_from_title">32dp</dimen>
 </resources>
