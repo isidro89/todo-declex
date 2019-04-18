@@ -1,11 +1,17 @@
 package com.dspot.declex.example.todo.ui.addtask;
 
 
+import android.graphics.Typeface;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
@@ -16,6 +22,7 @@ import com.dspot.declex.example.todo.R;
 import com.dspot.declex.example.todo.api.ItemViewModelList;
 import com.dspot.declex.example.todo.model.TaskToDo;
 import com.dspot.declex.example.todo.ui.Map;
+import com.dspot.declex.example.todo.ui.view.FontSpan;
 import com.dspot.declex.example.todo.ui.view.MarginItemDecoration;
 
 import org.androidannotations.annotations.AfterViews;
@@ -116,7 +123,27 @@ public class AddTaskFragment extends Fragment {
     }
 
     protected void setTimeToTimeView() {
-        timeView.setText(simpleDateFormatForTime.format(calendar.getTime()));
+        String formattedTime = simpleDateFormatForTime.format(calendar.getTime());
+        SpannableString styledTimeString = getSpannableString(formattedTime);
+        timeView.setText(styledTimeString);
+    }
+
+    private SpannableString getSpannableString(String source) {
+        SpannableString string = new SpannableString(source);
+
+        int start = 8;
+        int end = 10;
+
+        Typeface myTypeface = Typeface.create(ResourcesCompat.getFont(getActivity(),
+                R.font.lato_black), Typeface.BOLD);
+        string.setSpan(new FontSpan(myTypeface), start, end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+        string.setSpan(new RelativeSizeSpan(0.83f), start, end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+        int color = getActivity().getResources().getColor(R.color.colorText20percentOpaque);
+        string.setSpan(new ForegroundColorSpan(color), start, end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+
+        return string;
     }
 
     protected void initIconList() {
@@ -172,7 +199,7 @@ public class AddTaskFragment extends Fragment {
 
     @Touch(R.id.dateView)
     // I used this annotation here instead of @Click because due to the style
-    // (@style/Base.Widget.MaterialComponents.ErrorDelegatorTextInputEditText) the 1st time the user clicks this
+    // (@style/Base.Widget.MaterialComponents.TextInputEditText) the 1st time the user clicks this
     // view the dialog doesn't appear
     public void pickDate(MotionEvent motionEvent) {
         if (motionEvent.getAction() != MotionEvent.ACTION_DOWN)

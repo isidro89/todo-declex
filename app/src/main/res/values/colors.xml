@@ -6,9 +6,10 @@
     <color name="white">#FFF</color>
     <color name="colorAlmostWhite">#FBFDFD</color>
     <color name="colorText">#181743</color>
-    <color name="colorText20percentTransparent">#CC181743</color>
-    <color name="colorText40percentTransparent">#99181743</color>
-    <color name="colorText98percentTransparent">#05181743</color>
+    <color name="colorText80percentOpaque">#CC181743</color>
+    <color name="colorText60percentOpaque">#99181743</color>
+    <color name="colorText20percentOpaque">#33181743</color>
+    <color name="colorText02percentOpaque">#05181743</color>
     <color name="gray">#33181743</color>
     <color name="transparent">#00000000</color>
     <color name="aqua">#00FFFF</color>
