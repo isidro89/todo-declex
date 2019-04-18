@@ -4,7 +4,8 @@
     <color name="colorPrimaryDark">#254DDE</color>
     <color name="colorAccent">#FE1E9A</color>
     <color name="colorOutlinedBoxBackground">#FBFDFD</color>
-    <color name="gray">#555</color>
+    <color name="colorText">#181743</color>
+    <color name="gray">#33181743</color>
     <color name="transparent">#00000000</color>
     <color name="aqua">#00FFFF</color>
 </resources>
