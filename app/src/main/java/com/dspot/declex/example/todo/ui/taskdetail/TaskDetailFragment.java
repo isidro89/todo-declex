@@ -1,11 +1,21 @@
 package com.dspot.declex.example.todo.ui.taskdetail;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.R;
 import com.dspot.declex.example.todo.model.TaskToDo;
+import com.dspot.declex.example.todo.ui.Map;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -41,6 +51,9 @@ public class TaskDetailFragment extends DialogFragment {
     FragmentTaskDetailViewModel viewModel;
 
     @ViewById
+    ImageView taskIcon;
+
+    @ViewById
     TextView taskTitle;
 
     @ViewById
@@ -73,6 +86,13 @@ public class TaskDetailFragment extends DialogFragment {
         taskDate.setText(simpleDateFormat.format(task.getTimeStamp()));
         taskTime.setText(simpleDateFormatForTime.format(task.getTimeStamp()));
         taskDescription.setText(task.getDescription());
+        taskIcon.setImageResource(Map.getIcon(task.getCategory()));
     }
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        return null;
+    }
 }
