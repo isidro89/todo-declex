@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.Text.InputLayout" parent="Base.Widget.MaterialComponents.TextInputLayout">
+        <item name="android:background">@drawable/outlined_box_background</item>
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
+    </style>
+
+    <style name="AppTheme.Text.Input" parent="Base.Widget.MaterialComponents.TextInputEditText">
+        <item name="android:padding">8dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:background">@drawable/edit_text_background_line</item>
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
+    </style>
+
+    <style name="AppTheme.Text.Input.OutlinedBox" parent="Base.Widget.MaterialComponents.TextInputEditText">
+        <item name="android:background">@drawable/outlined_box_background</item>
+        <item name="android:textCursorDrawable">@drawable/cursor</item>
+    </style>
+
+
+</resources>

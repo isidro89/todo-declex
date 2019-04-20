@@ -79,19 +79,18 @@
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout2"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/AppTheme.Text.InputLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/outlined_box_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/task_description"
                     style="@style/AppTheme.Text.Input"
+                    android:id="@+id/task_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
