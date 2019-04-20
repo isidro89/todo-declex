@@ -1,12 +1,17 @@
 package com.dspot.declex.example.todo.ui.tasklist;
 
 
+import android.animation.Animator;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Group;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.ViewPropertyAnimator;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
@@ -15,6 +20,7 @@ import com.dspot.declex.example.todo.Navigation;
 import com.dspot.declex.example.todo.R;
 import com.dspot.declex.example.todo.api.DayList;
 import com.dspot.declex.example.todo.api.ItemViewModelList;
+import com.dspot.declex.example.todo.ui.view.SimpleAnimationListener;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -36,6 +42,7 @@ import static com.dspot.declex.actions.Action.$Populate;
 @EFragment(R.layout.fragment_tasklist)
 public class TaskListFragment extends Fragment {
 
+    public static final int ENTRANCE_ANIMATION_DURATION = 300;
     @ViewModel
     TaskListViewModel viewModel;
 
@@ -44,6 +51,9 @@ public class TaskListFragment extends Fragment {
 
     @Populate
     List<TaskToDoItemViewModel> taskList;
+
+    @Populate
+    List<TaskToDoItemViewModel> taskListPerDay;
 
     @Populate
     List<DayItemViewModel> dayListView;
@@ -59,6 +69,12 @@ public class TaskListFragment extends Fragment {
 
     @ViewById(R.id.dayListView)
     RecyclerView dayListRecyclerView;
+
+    @ViewById(R.id.rect)
+    View circularRevealedView;
+
+    @ViewById(R.id.taskList)
+    RecyclerView taskListRecyclerView;
 
     @InstanceState
     boolean isEditing;
@@ -87,6 +103,7 @@ public class TaskListFragment extends Fragment {
     public void initializeViews() {
         dayList = new DayList();
         initSelectedDay();
+        dayItemViewModel.setSelectedDate(selectedDay);
 
         setViewMode();
         setEditionMode(isEditing);
@@ -110,8 +127,14 @@ public class TaskListFragment extends Fragment {
     }
 
     @Observer
-    void taskToDoItemViewModelList(List<TaskToDoItemViewModel> taskList) {
-        this.taskList = taskList;
+    void taskListPerDay(List<TaskToDoItemViewModel> taskList) {
+        this.taskListPerDay = taskList;
+        $Populate(taskListPerDay);
+    }
+
+    @Observer
+    void allTasks(List<TaskToDoItemViewModel> list) {
+        this.taskList = list;
         $Populate(taskList);
     }
 
@@ -151,19 +174,82 @@ public class TaskListFragment extends Fragment {
     @Click(R.id.button_view_mode_toggle)
     public void toggleViewMode() {
         showAllTasks = !showAllTasks;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            Animator circularReveal = getCircularRevealAnimator();
+            circularReveal.start();
+
+            ViewPropertyAnimator fadeAnimation = getFadeAnimation();
+            fadeAnimation.start();
+        }
+
         setViewMode();
+    }
+
+    protected ViewPropertyAnimator getFadeAnimation() {
+        return circularRevealedView.animate()
+                .alpha(0)
+                .setStartDelay(200)
+                .setListener(new SimpleAnimationListener() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        circularRevealedView.setVisibility(View.INVISIBLE);
+                        circularRevealedView.setAlpha(1);
+                    }
+
+                });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    protected Animator getCircularRevealAnimator() {
+        int cx = (int) (buttonViewModeToggle.getX() + buttonViewModeToggle.getWidth() / 2);
+        int cy = (int) (buttonViewModeToggle.getY() + buttonViewModeToggle.getHeight() / 2);
+
+        float finalRadius = (float) Math.hypot(cx, cy);
+
+        Animator anim = ViewAnimationUtils.createCircularReveal(circularRevealedView, cx, cy, buttonViewModeToggle.getWidth() / 2, finalRadius);
+
+        circularRevealedView.setVisibility(View.VISIBLE);
+        return anim;
+    }
+
+    @AfterViews
+    public void setUpAnimationListener() {
+        constraintLayout.animate().setListener(new SimpleAnimationListener() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                if (showAllTasks) {
+                    constraintLayout.setVisibility(View.INVISIBLE);
+                    constraintLayout.setY(150);
+                }
+            }
+        });
     }
 
     protected void setViewMode() {
         if (showAllTasks) {
-            constraintLayout.setVisibility(View.GONE);
-            viewModel.setDate(null);
-            buttonViewModeToggle.setImageResource(R.drawable.fab_view_mode_toggle_src);
+            hideCalendarModeViews();
         } else {
-            onlyShowTasksForSelectedDay();
-            buttonViewModeToggle.setImageResource(R.drawable.fab_view_mode_list_src);
-            constraintLayout.setVisibility(View.VISIBLE);
+            showCalendarModeViews();
         }
+    }
+
+    private void showCalendarModeViews() {
+        setSelectedDay();
+
+        constraintLayout.setVisibility(View.VISIBLE);
+        constraintLayout.animate().setStartDelay(100).alpha(1).setDuration(ENTRANCE_ANIMATION_DURATION).start();
+        constraintLayout.animate().y(0).setDuration(ENTRANCE_ANIMATION_DURATION).start();
+
+        buttonViewModeToggle.setImageResource(R.drawable.fab_view_mode_list_src);
+    }
+
+    private void hideCalendarModeViews() {
+        constraintLayout.animate().y(-100).start();
+        constraintLayout.animate().alpha(0).start();
+
+        buttonViewModeToggle.setImageResource(R.drawable.fab_view_mode_toggle_src);
     }
 
     @Click(R.id.day_item_root_layout)
@@ -171,12 +257,17 @@ public class TaskListFragment extends Fragment {
         int indexOfCurrentSelectedDay = dayList.indexOf(selectedDay);
         selectedDay = model.model;
         int indexOfNewSelectedDay = dayList.indexOf(selectedDay);
-        onlyShowTasksForSelectedDay();
+
+        setSelectedDay();
+        notifyItemsChanged(indexOfCurrentSelectedDay, indexOfNewSelectedDay);
+    }
+
+    protected void notifyItemsChanged(int indexOfCurrentSelectedDay, int indexOfNewSelectedDay) {
         dayListRecyclerView.getAdapter().notifyItemChanged(indexOfCurrentSelectedDay);
         dayListRecyclerView.getAdapter().notifyItemChanged(indexOfNewSelectedDay);
     }
 
-    protected void onlyShowTasksForSelectedDay() {
+    protected void setSelectedDay() {
         viewModel.setDate(selectedDay);
         dayItemViewModel.setSelectedDate(selectedDay);
         dayListRecyclerView.scrollToPosition(dayList.indexOf(selectedDay));
