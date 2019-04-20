@@ -19,7 +19,6 @@ import java.util.Locale;
 import pl.com.dspot.archiannotations.annotation.EViewModel;
 
 @EBean
-@EViewModel
 public class TaskToDoItemViewModel extends ItemViewModel<TaskToDo> {
 
     public static boolean canEditStatus = false;

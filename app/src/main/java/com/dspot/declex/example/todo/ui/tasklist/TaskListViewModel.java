@@ -25,38 +25,49 @@ import pl.com.dspot.archiannotations.annotation.Observable;
 public class TaskListViewModel extends ViewModel {
 
     @Observable
-    LiveData<List<TaskToDoItemViewModel>> taskToDoItemViewModelList;
+    LiveData<List<TaskToDoItemViewModel>> taskListPerDay;
 
     MutableLiveData<Date> dateMutableLiveData;
 
     @Bean
     DatabaseInstance databaseInstance;
 
-    @pl.com.dspot.archiannotations.annotation.ViewModel
+    @Bean
     TaskToDoItemViewModel itemViewModel;
+
+    @Bean
+    TaskToDoItemViewModel taskPerDayItemViewModel;
+
+    @Observable
+    public LiveData<List<TaskToDoItemViewModel>> allTasks;
 
     @AfterInject
     void initializeDependencies() {
         dateMutableLiveData = new MutableLiveData<>();
-        taskToDoItemViewModelList = Transformations.switchMap(dateMutableLiveData,
+        taskListPerDay = Transformations.switchMap(dateMutableLiveData,
                 date -> {
                     if (date == null) {
-                        return Transformations.map(
-                                databaseInstance.get().taskDao().getAllTasks(),
-                                input -> new ItemViewModelList<>(itemViewModel, input));
-                    } else {
-                        return Transformations.map(
-                                databaseInstance.get().taskDao().getTasksInRange(
-                                        getAsTimeStampBeginningOf(date),
-                                        getAsTimeStampEndOf(date)),
-                                input -> new ItemViewModelList<>(itemViewModel, input));
+                        return null;
                     }
+
+                    return Transformations.map(
+                            databaseInstance.get().taskDao().getTasksInRange(
+                                    getAsTimeStampBeginningOf(date),
+                                    getAsTimeStampEndOf(date)),
+                            input -> new ItemViewModelList<>(taskPerDayItemViewModel, input));
                 });
         dateMutableLiveData.setValue(null);
+        allTasks = Transformations.map(
+                databaseInstance.get().taskDao().getAllTasks(),
+                input -> new ItemViewModelList<>(itemViewModel, input));
     }
 
-    public LiveData<List<TaskToDoItemViewModel>> getTaskToDoItemViewModelList() {
-        return taskToDoItemViewModelList;
+    public LiveData<List<TaskToDoItemViewModel>> getAllTasks() {
+        return allTasks;
+    }
+
+    public LiveData<List<TaskToDoItemViewModel>> getTaskListPerDay() {
+        return taskListPerDay;
     }
 
     public void setDate(Date date) {
