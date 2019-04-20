@@ -17,6 +17,10 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/task_item" />
 
+    <include
+        android:id="@+id/layout_list_of_days"
+        layout="@layout/list_of_days" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -85,11 +89,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="fab,button_check_done_tasks,button_view_mode_toggle" />
-    <include
-        android:elevation="20dp"
-        android:id="@+id/layout_list_of_days"
-        layout="@layout/list_of_days" />
-
 
     <View
         android:id="@+id/rect"
