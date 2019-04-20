@@ -218,7 +218,7 @@ public class AddTaskFragment extends Fragment {
         setDateToDateView();
     }
 
-    @Touch(R.id.timeView) // Why? Same as pickDate()
+    @Touch(R.id.timeView)
     public void pickTime(MotionEvent motionEvent) {
         if (motionEvent.getAction() != MotionEvent.ACTION_DOWN)
             return;

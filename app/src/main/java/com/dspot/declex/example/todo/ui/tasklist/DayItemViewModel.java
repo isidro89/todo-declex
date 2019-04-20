@@ -7,13 +7,11 @@ import android.widget.TextView;
 
 import com.dspot.declex.example.todo.api.ItemViewModel;
 
-import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.EBean;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
 import pl.com.dspot.archiannotations.annotation.EViewModel;
 
@@ -29,11 +27,6 @@ public class DayItemViewModel extends ItemViewModel<Date> {
 
     protected Date selectedDay;
 
-    @AfterInject
-    public void initDateFormats() {
-        simpleDateFormatForDayName.setTimeZone(TimeZone.getTimeZone("GMT"));
-        simpleDateFormatForDayNumber.setTimeZone(TimeZone.getTimeZone("GMT"));
-    }
 
     public String getDayNumber() {
         return simpleDateFormatForDayNumber.format(model);

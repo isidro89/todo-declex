@@ -15,7 +15,6 @@ import org.androidannotations.annotations.EBean;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import pl.com.dspot.archiannotations.annotation.EViewModel;
 import pl.com.dspot.archiannotations.annotation.Observable;
@@ -87,7 +86,6 @@ public class TaskListViewModel extends ViewModel {
 
     protected Calendar getBeginningOf(Date day) {
         Calendar calendarDay = Calendar.getInstance();
-        calendarDay.setTimeZone(TimeZone.getTimeZone("UTC"));
         calendarDay.setTime(day);
         calendarDay.set(Calendar.HOUR_OF_DAY, 0);
         calendarDay.set(Calendar.MINUTE, 0);

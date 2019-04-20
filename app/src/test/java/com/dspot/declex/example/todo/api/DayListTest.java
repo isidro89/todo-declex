@@ -25,8 +25,8 @@ public class DayListTest {
     @Test
     public void callingSize_ReturnsRightAmountOfDays() {
         /*
-        There are 24 leap years in a century. Each lep year adds 1 day.
-        2000 was leap a year.
+        There are 24 leap years in a century. Each leap year adds 1 day.
+        2000 was a leap year.
         1900 - 1999 there are 36524 days
         2000 - 2099 there are 36525 days.
         Jan 1 20100 - Dec 31 20100 there are 365 days

@@ -29,6 +29,7 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -122,8 +123,16 @@ public class TaskListFragment extends Fragment {
     }
 
     protected void initSelectedDay() {
-        if (selectedDay == null)
-            selectedDay = new Date(System.currentTimeMillis());
+        if (selectedDay == null) {
+            Calendar instance = Calendar.getInstance();
+            instance.setTime(new Date(System.currentTimeMillis()));
+            instance.set(Calendar.HOUR_OF_DAY, 0);
+            instance.set(Calendar.MINUTE, 0);
+            instance.set(Calendar.SECOND, 0);
+            instance.set(Calendar.MILLISECOND, 0);
+            instance.add(Calendar.DAY_OF_YEAR, 1);
+            selectedDay = new Date(instance.getTime().getTime() - 1);
+        }
     }
 
     @Observer
